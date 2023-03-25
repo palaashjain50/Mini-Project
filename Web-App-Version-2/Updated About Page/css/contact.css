@@ -97,3 +97,14 @@ span{
     margin-left: 37%;
     cursor: pointer;
 }
+
+#customer_reviews{
+    /* display: flex; */
+    /* position: relative; */
+    width: 65%;
+    padding: 10px;
+    /* margin-left: auto; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    text-align: center;
+}
