@@ -1,0 +1,26 @@
+[
+  {
+    "medicine1": "Shwas Syrup",
+    "price1": "₹63",
+    "medicine2": "",
+    "price2": "",
+    "medicine3": "",
+    "price3": ""
+  },
+  {
+    "medicine1": "Albutamol Plus Tablet 10's",
+    "price1": "MRP(₹61)₹53.70 ",
+    "medicine2": "Albutamol Neo Syrup 100 ml",
+    "price2": "MRP(₹86.5)₹76.10 ",
+    "medicine3": "Albutamol-LS Syrup 100 ml",
+    "price3": "MRP₹86.50 "
+  },
+  {
+    "medicine1": "Asthalin 100mcg Box Of 200md Metered Dose Inhaler",
+    "price1": "₹78.85*",
+    "medicine2": "Asthalin 2.5mg 2.5ml Packet Of 5 Respules",
+    "price2": "₹28.28*",
+    "medicine3": "Asthalin Syrup 100ml",
+    "price3": "₹14.34*"
+  }
+]

@@ -9,6 +9,7 @@ const express = require('express');
 const cheerio = require('cheerio');
 const request = require('request-promise');
 const bodyParser = require('body-parser');
+const { type } = require('os');
 
 const app = express();
 
@@ -29,11 +30,11 @@ app.post('/', async (req, res) => {
 
 
         var med = req.body;
-        console.log(med);
-        console.log(typeof(med));
+        //console.log(med);
+        //console.log(typeof(med));
 
         var url1 = `https://www.1mg.com/search/all?name=${med['name']}`;
-        console.log('url1' ,url1);
+        //console.log('url1' ,url1);
         var customHeaderRequest1 = request.defaults({
         headers : {'Origin': 'https://www.1mg.com',
                     'Referer': url1,
@@ -51,13 +52,13 @@ app.post('/', async (req, res) => {
             // if(Object.keys(med_name1).length == 1)  {
             if(med_name1['length'] == 0) {
                     // RCIFAX, bilypsa
-                    console.log('1');
+                    //console.log('1');
                     med_name = $(".style__pro-title___3zxNC"); 
                     price = $('.style__price-tag___B2csA');
             } 
             else {
                     // Crocin
-                    console.log('2');
+                    //console.log('2');
                     med_name = med_name1;
                     price = $('.style__price-tag___KzOkY'); 
             }
@@ -113,12 +114,19 @@ app.post('/', async (req, res) => {
                         medicine3: $(med_name[2]).text(),
                         price3: $(price[2]).text()
                     }
-                    res.json({tata1mg, apollo, pharmeasy});
+                    //res.json({tata1mg, apollo, pharmeasy});
+                    var arr=[tata1mg,apollo,pharmeasy];
+                    //console.log(pharmeasy);
+                    var fs=require('fs');
+                    fs.writeFileSync('med.json', JSON.stringify(arr, null, 2) , 'utf-8');
                 });
             });
       });
 });
 
+
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
+
+

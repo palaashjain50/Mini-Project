@@ -7,13 +7,13 @@
     <title>Medicine Scraper</title>
 </head>
 <body>
-    <form  action="http://localhost:3000/" method="POST">
+    <form target="transFrame" action="http://localhost:3000/" method="POST">
+        <iframe style="display: none;" name="transFrame" id="transFrame"></iframe>
         <input type="text" placeholder="Search Medicine" id="medicine__name" name="name">
-        <button  type="submit">Click Me</button>
+        <button id="clickbtn" type="submit">Click Me</button>
     </form>
-
-    <div class="display_med"></div>
+    <div id="medicine"></div>
     <script src="app.js"></script>
-
+    <script src="client.js"></script>
 </body>
 </html>
