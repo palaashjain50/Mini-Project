@@ -13,6 +13,7 @@ function readTextFile(file, callback) {
 window.addEventListener('load',()=>{
     readTextFile("med.json", function(text){
         var data = JSON.parse(text);
-        console.log(data);
+        //console.log(data);
+        console.log(data[0].images);
     });
 });

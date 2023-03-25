@@ -1,26 +1,62 @@
 [
   {
-    "medicine1": "Shwas Syrup",
-    "price1": "₹63",
-    "medicine2": "",
-    "price2": "",
-    "medicine3": "",
-    "price3": ""
+    "medicines": [
+      "Dolo 650 Tablet",
+      "Dolo 500 Tablet",
+      "Saridon Advance Tablet for 5 in 1 Pain Relief",
+      "Dolo 250 Oral Suspension"
+    ],
+    "prices": [
+      "₹25",
+      "₹12",
+      "₹41",
+      "₹36"
+    ],
+    "images": [
+      "Dolo 650 Tablet",
+      "Dolo 500 Tablet",
+      "Saridon Advance Tablet for 5 in 1 Pain Relief",
+      "Dolo 250 Oral Suspension"
+    ]
   },
   {
-    "medicine1": "Albutamol Plus Tablet 10's",
-    "price1": "MRP(₹61)₹53.70 ",
-    "medicine2": "Albutamol Neo Syrup 100 ml",
-    "price2": "MRP(₹86.5)₹76.10 ",
-    "medicine3": "Albutamol-LS Syrup 100 ml",
-    "price3": "MRP₹86.50 "
+    "medicines": [
+      "Dolo-650 Tablet 15's",
+      "Dolo-500 Tablet 15's",
+      "Dolo 500 Tablet 10's",
+      "Dolo 250 Syrup 60 ml"
+    ],
+    "prices": [
+      "MRP₹30 ",
+      "MRP₹13 ",
+      "MRP₹10 ",
+      "MRP₹40 "
+    ],
+    "images": [
+      "https://newassets.apollo247.com/pub/media/catalog/product/cache/resized/100x/d/o/dol0026_2.jpg",
+      "https://newassets.apollo247.com/pub/media/catalog/product/cache/resized/100x/d/o/dol0010.jpg",
+      "https://newassets.apollo247.com/pub/media/catalog/product/cache/resized/100x/d/o/dol0504.jpg",
+      "https://newassets.apollo247.com/pub/media/catalog/product/cache/resized/100x/d/o/dol0193_2_feb23_1.jpg"
+    ]
   },
   {
-    "medicine1": "Asthalin 100mcg Box Of 200md Metered Dose Inhaler",
-    "price1": "₹78.85*",
-    "medicine2": "Asthalin 2.5mg 2.5ml Packet Of 5 Respules",
-    "price2": "₹28.28*",
-    "medicine3": "Asthalin Syrup 100ml",
-    "price3": "₹14.34*"
+    "medicines": [
+      "Dolo (Paracetamol) 650mg Strip Of 15 Tablets",
+      "Dolo (Paracetamol) 500mg Tablet",
+      "Dolonex Dt 20 Strip Of 15 Tablets",
+      "Dolopar 650mg Strip Of 15 Tablets"
+    ],
+    "prices": [
+      "₹25.41*",
+      "₹11.42*",
+      "₹183.45*",
+      "₹25.41*"
+    ],
+    "images": [
+      "https://cdn01.pharmeasy.in/dam/products/059346/dolo-650mg-strip-of-15-tablets-2-1653986150.jpg",
+      "https://cdn01.pharmeasy.in/dam/products/192033/dolo-500mg-tablet-2-1641532606.jpg",
+      "https://cdn01.pharmeasy.in/dam/products/I04304/dolonex-dt-20-strip-of-15-tablets-2-1641536751.jpg",
+      "https://cdn01.pharmeasy.in/dam/products/269216/dolopar-650mg-strip-of-15-tablets-1-1641533687.jpg"
+    ]
   }
 ]

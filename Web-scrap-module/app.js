@@ -11,6 +11,18 @@ const request = require('request-promise');
 const bodyParser = require('body-parser');
 const { type } = require('os');
 
+//function to process strings to get src of img(to be used in pharmeasy scraping)
+function getSrc(string){
+    if(string==""){
+        return null;
+    }
+    string=string.split(" ")[2];
+    string=string.replace("src=","");
+    string=string.replaceAll("\"","");
+    return string;
+}
+
+//scraping
 const app = express();
 
 app.use(bodyParser.urlencoded({extended : true}));
@@ -62,13 +74,20 @@ app.post('/', async (req, res) => {
                     med_name = med_name1;
                     price = $('.style__price-tag___KzOkY'); 
             }
+            let image = $('.style__pro-title___3zxNC');
             tata1mg = {
-                medicine1: $(med_name[0]).text(),
-                price1: $(price[0]).text(),
-                medicine2: $(med_name[1]).text(),
-                price2: $(price[1]).text(),
-                medicine3: $(med_name[2]).text(),
-                price3: $(price[2]).text()
+                medicines: [$(med_name[0]).text(),
+                            $(med_name[1]).text(), 
+                            $(med_name[2]).text(), 
+                            $(med_name[3]).text()],
+                prices: [$(price[0]).text(), 
+                        $(price[1]).text(), 
+                        $(price[2]).text(), 
+                        $(price[3]).text()],
+                images: [$(image[0]).text(), 
+                        $(image[1]).text(), 
+                        $(image[2]).text(), 
+                        $(image[3]).text()]
             }
             
             // Scraping from apollopharmacy
@@ -84,13 +103,20 @@ app.post('/', async (req, res) => {
                 const $ = cheerio.load(body);
                 let med_name = $(".ProductCard_productName__f82e9"); 
                 let price = $(".ProductCard_priceGroup__V3kKR"); 
+                let image = $(".ProductCard_bigAvatar__KUsDb");
                 apollo = {
-                    medicine1: $(med_name[0]).text(),
-                    price1: $(price[0]).text(),
-                    medicine2: $(med_name[1]).text(),
-                    price2: $(price[1]).text(),
-                    medicine3: $(med_name[2]).text(),
-                    price3: $(price[2]).text()
+                    medicines: [$(med_name[0]).text(),
+                                $(med_name[1]).text(), 
+                                $(med_name[2]).text(), 
+                                $(med_name[3]).text()],
+                    prices: [$(price[0]).text(), 
+                            $(price[1]).text(), 
+                            $(price[2]).text(), 
+                            $(price[3]).text()],
+                    images: [$(image[0]).children('img').attr('src'), 
+                            $(image[1]).children('img').attr('src'), 
+                            $(image[2]).children('img').attr('src'), 
+                            $(image[3]).children('img').attr('src')]
                 }
                 
                 // Scraping from pharmeasy
@@ -106,13 +132,20 @@ app.post('/', async (req, res) => {
                     var pharmeasy;
                     let med_name = $(".ProductCard_medicineName__8Ydfq"); 
                     let price = $(".ProductCard_ourPrice__yDytt"); 
+                    let image = $(".ProductCard_medicineImgDefault__Q8XbJ noscript");
                     pharmeasy = {
-                        medicine1: $(med_name[0]).text(),
-                        price1: $(price[0]).text(),
-                        medicine2: $(med_name[1]).text(),
-                        price2: $(price[1]).text(),
-                        medicine3: $(med_name[2]).text(),
-                        price3: $(price[2]).text()
+                        medicines: [$(med_name[0]).text(),
+                                    $(med_name[1]).text(), 
+                                    $(med_name[2]).text(), 
+                                    $(med_name[3]).text()],
+                        prices: [$(price[0]).text(), 
+                                $(price[1]).text(), 
+                                $(price[2]).text(), 
+                                $(price[3]).text()],
+                        images: [getSrc($(image[0]).text()), 
+                                getSrc($(image[1]).text()), 
+                                getSrc($(image[2]).text()), 
+                                getSrc($(image[3]).text())]
                     }
                     //res.json({tata1mg, apollo, pharmeasy});
                     var arr=[tata1mg,apollo,pharmeasy];
