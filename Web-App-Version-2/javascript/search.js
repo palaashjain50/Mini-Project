@@ -14,14 +14,32 @@ function readTextFile(file, callback) {
         }
     }
     rawFile.send(null);
-};
+}
+
+const form = document.querySelector('.form_container');
+const medicine_container = document.querySelector('.output_search_container');
+const load_gif = document.querySelector(".load_gif");
+// medicine_container.style.display = 'none';
+// medicine_container.style.display = 'none';
+form.addEventListener('submit', () => {
+    console.log('form clicked');
+    medicine_container.style.display = 'none';
+    load_gif.classList.add("load_gif_active");
+});
+medicine_container.style.display = 'grid';
+
 
 window.addEventListener('load',()=>{
+    // medicine_container.style.display = 'none';
     readTextFile("med.json", function(text){
         var data = JSON.parse(text);
-        console.log(data);
-        console.log('Try');
-        // console.log('Version - 2');
+        console.log(data);     
+        load_gif.classList.remove("load_gif_active");
+        console.log('Version - 2');
+        // output_search_container.style.display = 'block';
+        // form.addEventListener('submit', () => {
+        //     output_search_container.style.display = 'block';
+        // });
         // const loading_gif = document.querySelector(".load_gif");
         const cards = document.querySelectorAll(".card");
         const name = document.querySelectorAll(".medicine_name");
@@ -38,9 +56,11 @@ window.addEventListener('load',()=>{
         let mrp_arr = tata1mg_arr[2];
         let mediimg_arr = tata1mg_arr[3];
         // console.log(mediname_arr);
+        console.log(mediname_arr.length);
         for(let i = 0; i < mediname_arr.length - 1; i++) {
-            if(mediname_arr === ""){
-                cards[i].classList.remove("card");
+            if(mediname_arr[i] == ""){
+                // console.log("none");
+                cards[i].style.display = 'none';
             }
             else {
                 img[i].src = mediimg_arr[i];
@@ -56,9 +76,14 @@ window.addEventListener('load',()=>{
         mediprice_arr = apollo_arr[1];
         mediimg_arr = apollo_arr[2];
         for(let i = 0, j = 3; i < mediname_arr.length - 1; i++, j++) {
-            name[j].innerText = mediname_arr[i];
-            price[j].innerText = mediprice_arr[i];
-            img[j].src = mediimg_arr[i];
+            if(mediname_arr[i] == "") {
+                cards[j].style.display = 'none';
+            }
+            else {
+                name[j].innerText = mediname_arr[i];
+                price[j].innerText = mediprice_arr[i];
+                img[j].src = mediimg_arr[i];
+            }
         }
 
         let pharmeasy_arr = Object.values(data[2]);
@@ -67,11 +92,16 @@ window.addEventListener('load',()=>{
         mediimg_arr = pharmeasy_arr[3];
         mrp_arr = pharmeasy_arr[2];
         for(let i = 0, j = 6; i < mediname_arr.length - 1; i++, j++) {
-            name[j].innerText = mediname_arr[i];
-            price[j].innerText = mediprice_arr[i];
-            img[j].src = mediimg_arr[i];
-            mrp[j-3].innerText = mrp_arr[i];
-            mrp[j-3].style.setProperty("text-decoration", "line-through");
+            if(mediname_arr[i] == ""){
+                cards[j].style.display = 'none';
+            }
+            else{
+                name[j].innerText = mediname_arr[i];
+                price[j].innerText = mediprice_arr[i];
+                img[j].src = mediimg_arr[i];
+                mrp[j-3].innerText = mrp_arr[i];
+                mrp[j-3].style.setProperty("text-decoration", "line-through");
+            }
         }
         
     });
