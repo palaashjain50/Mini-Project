@@ -78,7 +78,8 @@ input:focus{
     padding: 13px;
     margin: 20px;
     border-radius: 35px;
-    /* min-height: 415px; */
+    position: relative;
+    min-height: 415px;
 }
 
 .imageArea{
@@ -91,6 +92,13 @@ input:focus{
     width: 170px;
     height: 170px;
     margin: 20px;
+}
+
+.baseGroup{
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    bottom: 18px;
 }
 
 .medName, .price, .cardSource, .addToCartBtn{
@@ -154,6 +162,10 @@ input:focus{
     padding: 2px;
     background-color: #0b3c82;
     color: white;
+}
+
+.cardSource>span>a:hover{
+    color: #1d7a13;
 }
 
 .cardSource>span>a{
