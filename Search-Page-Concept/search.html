@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediSort | Search</title>
+    <link rel="stylesheet" href="general.css">
+    <link rel="stylesheet" href="search.css">
+    <!-- for favicon -->
+    <link rel="icon" type="image/x-icon" href="./Images/logo.png">
+    <!-- for google icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body>
+    <!-- header section of the page -->
+    <div id="header">
+        <div id="banner">
+            <img src="./Images/banner.jpg" alt="MediSort">
+        </div>
+        <div id="navbar">
+            <img src="./Images/logo.png" alt="MediSort Logo">
+            <nav id="navList">
+                <div class="listItem">
+                    <a href="medisort.html">Home</a>
+                </div>
+                <div class="listItem">
+                    <a href="about.html">About Us</a>
+                </div>
+                <div class="listItem">
+                    <a class="currentPage" style="color: black;" href="search.html">Search</a>
+                </div>
+                <div class="listItem">
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </nav>
+        </div>
+        <div id="heading">
+            Medi<span>Sort</span>
+        </div>
+        <div id="slogan">
+            <!-- The One Step Solution to Your Medication Needs -->
+        </div>
+    </div>
+    <div id="searchPageContent">
+        <div id="searchBoxHeader">
+            <div id="formContainer">
+                <form target="transFrame" action="http://localhost:3000/" method="POST">
+                    <iframe style="display: none;" name="transFrame" id="transFrame"></iframe>
+                    <input type="text" placeholder="Search for a Medicine..." id="medicine_name" name="name">
+                    <button id="searchBtn" type="submit"><img src="./Images/searchIcon.png" alt="Search"></button>
+                </form>
+            </div>
+        </div>
+        <div id="searchResultBox">
+            <div id="searchInfo">
+                <!-- will be appended through javascript -->
+                <!-- Showing results for Crocin..... -->
+                <!-- <div>Please wait while we look for the medicine</div>
+                <div><img src="../Images/searchLoading.gif" width="32px" alt="Loading..."></div> -->
+            </div>
+            <div id="searchCards">
+                <!-- card structure that will be appended in html using javascript -->
+                <!-- <div class="searchCard">
+                    <div class="imageArea">
+                        <img src="" alt="">
+                    </div>
+                    <div class="medName">
+                        Crocin 150 Tablet 20mg
+                    </div>
+                    <div class="baseGroup">
+                        <div class="price">
+                            Price- <span>$20.00</span>
+                        </div>
+                        <div class="quantityArea">
+                            <div class="addIcon">
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                            </div>
+                            <div class="displayArea">
+                                5
+                            </div>
+                            <div class="subtractIcon">
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                            </div>
+                        </div>
+                        <div class="addToCartArea">
+                            <div class="addToCartBtn">
+                                Add to Cart
+                            </div>
+                        </div>
+                        <div class="cardSource">
+                            Source: <span><a href="" target="_blank">NetMeds</a></span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>  
+    </div>
+    <div id="footer">
+        <div id="footerBg">
+            <img src="./Images/footer.jpg" alt="Footer">
+            <div id="wrapper">
+                <div id="footLine">
+                    Useful Links
+                </div>
+                <div id="line1" class="line"></div>
+                <div id="links">
+                    <div id="localLinks">
+                        <ul>
+                            <li><a href="medisort.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="search.html">Search</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div id="medLinks">
+                        <ul>
+                            <li><a href="https://www.netmeds.com" target="_blank">NetMeds</a></li>
+                            <li><a href="https://www.Pharmeasy.com" target="_blank">PharmEasy</a></li>
+                            <li><a href="https://www.1mg.com" target="_blank">Tata 1mg</a></li>
+                            <li><a href="https://www.apollopharmacy.in" target="_blank">Apollo Pharmacy</a></li>
+                        </ul>
+                    </div>
+                    <div id="socialLinks">
+                        <div id="socialHeading">
+                            Follow Us
+                        </div>
+                        <div id="icons">
+                            <a href="https://www.instagram.com" target="_blank"><img src="./Images/instagram.png" alt="Instagram"></a>
+                            <a href="https://www.facebook.com" target="_blank"><img src="./Images/facebook.png" alt="FaceBook"></a>
+                            <a href="https://www.twitter.com" target="_blank"><img src="./Images/twitter.png" alt="Twitter"></a>
+                            <a href="https://www.linkedin.com" target="_blank"><img src="./Images/linkedin.png" alt="LinkedIn"></a>
+                            <a href="https://www.youtube.com" target="_blank"><img src="./Images/youtube.png" alt="Youtube"></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="line2" class="line"></div>
+                <div id="copyright">
+                    www.medisort.com | &copy; Copyright 2023-2025 | All Rights Reserved
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- for typing animation -->
+    <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+    <!-- server side script -->
+    <!-- <script src="../javascript/app.js"></script> -->
+    <!-- page specific js file -->
+    <script src="search.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+/* base background */
+#searchPageContent{
+    background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
+    font-weight: bolder;
+}
+
+/* search box header */
+#searchBoxHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formContainer{
+    margin: 40px;
+}
+
+#formContainer>form{
+    width: 776px;
+    height: 38px;
+}
+
+#formContainer>form>input{
+    width: 750px;
+    height: 28px;
+    font-size: 18px;
+    border-radius: 13px;
+    padding: 5px 13px;
+    border: 0px;
+}
+
+input:focus{
+    outline: none;
+}
+
+#searchBtn{
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    background-color: transparent;
+    position: relative;
+    right: -710px;
+    cursor: pointer;
+    top: -32px;
+}
+
+#searchBtn>img{
+    height: 25px;
+}
+
+/* search result box */
+#searchResultBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchInfo{
+    text-align: center;
+    font-size: 20px;
+    color: white;
+}
+
+#searchCards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    /* to give all cards equal height */
+}
+
+/* result cards' design */
+.searchCard{
+    background-color: white;
+    width: 285px;
+    font-size: 18px;
+    padding: 13px;
+    margin: 20px;
+    border-radius: 35px;
+    position: relative;
+    min-height: 415px;
+}
+
+.imageArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageArea>img{
+    width: 170px;
+    height: 170px;
+    margin: 20px;
+}
+
+.baseGroup{
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    bottom: 18px;
+}
+
+.medName, .price, .cardSource, .addToCartBtn{
+    text-align: center;
+}
+
+.price>span{
+    color: red;
+}
+
+.quantityArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addIcon, .subtractIcon{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b3c82;
+    color: white;
+    padding: 3px;
+}
+
+.addIcon:hover, .subtractIcon:hover, .addToCartBtn:hover{
+    cursor: pointer;
+    background-color: #0c2d5c;
+}
+
+.addIcon:active, .subtractIcon:active, .addToCartBtn:active{
+    cursor: pointer;
+    background-color: #3e0199;
+}
+
+.addIcon, .subtractIcon, .addToCartBtn, .displayArea{
+    border-radius: 6px;
+}
+
+.quantityArea>div{
+    text-align: center;
+}
+
+.displayArea{
+    width: 50%;
+    margin: 3px 5px;
+    background-color: #b5d6fb;
+    padding: 3px;
+}
+
+.addToCartArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addToCartBtn{
+    width: 200px;
+    margin: 3px;
+    padding: 2px;
+    background-color: #0b3c82;
+    color: white;
+}
+
+.cardSource>span>a:hover{
+    color: #1d7a13;
+}
+
+.cardSource>span>a{
+    text-decoration: none;
+    color: #12c600;
+}

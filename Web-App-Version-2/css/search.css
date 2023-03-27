@@ -1,0 +1,236 @@
+
+.search_web_page{
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.output_search_container{
+    position: relative;
+}
+
+.search_box{
+    position: relative;
+    width: 100vw;
+    height: 1500px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
+    z-index: 0;
+    padding-top: 50px;
+}
+
+.form_container{
+    width: 50%;
+    height: 50px;
+    margin: 0px auto;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 80px;
+}
+
+#medicine__name{
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    padding-left: 20px;
+    font-size: 1.1rem;
+}
+
+::placeholder{
+    color: #051937;
+}
+
+#clickbtn{
+    border: none;
+    margin-right: 10px;
+    width: 30px;
+    margin-top: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.summary_btn{
+    all:unset;  
+    position: sticky;
+    top: 50px;
+    left: 1340px;
+    padding: 12px;
+    border-radius: 2rem;
+    color: white;
+    border: 1px solid white;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.summary_btn:hover{
+    background-color: white;
+    color: #051937;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.load_gif {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    transform: -50% -50%;
+    scale: 0;
+}
+
+.load_gif_active{
+    scale: 1;
+}
+
+.medicine_container{
+    width: 1000px;
+    max-width: 1300px;
+    margin: 0px auto;
+    display: grid;
+    grid-template-rows: repeat(3,fr);
+}
+
+.inactive{
+    transition: scale 1s;
+    scale: 0;
+}
+
+.tata1mg_container, .pharmeasy_container, .apollo_container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card{
+    width: 40%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.card > img{
+    margin: 10px auto;
+    /* scale: 1.1; */
+}
+
+.product_details{
+    color: #051937;
+    margin-top: 20px;
+    padding-left: 10px;
+    height: 50%;
+}
+
+.medicine_name{
+    font-size: 1.5rem;
+}
+
+.mrp{
+    margin-top: 20px;
+    opacity: 0.8;
+    font-size: 13px;
+    color: red;
+}
+
+.cart{
+    all: unset;
+    font-size: 1.2rem;
+    text-align: center;
+    border-top: 1px solid #051937;
+    position: sticky;
+    bottom: 0; 
+}
+
+.cart_inactive{
+    display: none;
+}
+
+.cart:hover{
+    background-color: #051937;
+    color: white;
+    cursor: pointer;
+}
+
+.summary_container{
+    transition: translate 2s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: 900px;
+    height: 700px;
+    background: #00000088;
+    scale: 0;
+    z-index: 2;
+    border: 1px solid rgb(177, 177, 177);
+    border-radius: 6px;
+    color: white;
+}
+
+.active{
+    transition: scale 1s;
+    scale: 1;
+}
+
+.counter_btn{
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    display: none;
+}
+
+.counter_btn_active{
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.counter_btn_plus, .counter_btn_minus{
+    all: unset;
+    height: 23px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.counter_btn_plus{
+    border-right: 1px solid black;
+}
+
+.counter_btn_minus{
+    border-left: 1px solid black;
+}
+
+.summary_container_companies{
+    display: flex;
+    flex-direction: column;
+}
+.cart_items{
+    display: grid;
+    grid-template-rows: repeat(2,1fr);
+}
+
+.cart_item, .cart_items_description{
+    font-size: 1.2rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.cart_item > p, .cart_items_description > p{
+    text-align: center;
+}
+
+
+
+
