@@ -16,7 +16,7 @@
     <!-- header section of the page -->
     <div class="search_web_page">
 
-        <div id="header">
+        <div id="header" style="width: 100%;">
             <div id="banner">
                 <img src="../Images/banner.jpg" alt="MediSort">
             </div>
@@ -45,7 +45,7 @@
             </div>
         </div>
         
-        <div class="search_box">
+        <div class="search_box" style="width: 100%;">
 
             <button class="summary_btn">View Summary</button>
 
@@ -61,7 +61,7 @@
             </form>
 
             <div class="load_gif">
-                <img src="../Images/load_med.gif" alt="">
+                <img src="../Images/load_med.gif" alt="" width="200px" height="200px">
             </div>
 
             <div class="output_search_container">
@@ -312,7 +312,6 @@
                         </div>
                     </div>
     
-                    
                 </div>
 
                 <!-- Displayed on click of 'View Summary' button -->
@@ -365,7 +364,9 @@
     
                         <!-- Apollo -->
                         <div class="apollo_cart">
-                            <p>Apollo</p>                        
+                            <p>Apollo</p>
+    
+                            <!-- All class are starting with letter c to avoid clash with the names of medicine_container -->
                             <div class="cart_items">
                                 <div class="cart_items_description">
                                     <p>Medicine</p>
@@ -383,10 +384,11 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     
-        <div id="footer">
+        <div id="footer" style="width: 100%;">
             <div id="footerBg">
                 <img src="../Images/footer.jpg" alt="Footer">
                 <div id="wrapper">
@@ -439,7 +441,7 @@
     <!-- for + and - icon in add to cart -->
     <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
     <!-- page specific js file -->
-    <script src="../javascript/search.js"></script>
-    <script src="../javascript/app.js"></script>
+    <script src="search.js"></script>
+    <script src="app.js"></script>
 </body>
 </html> 
