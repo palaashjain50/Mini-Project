@@ -100,31 +100,33 @@ function displayCards(medJsonData){
                         <div class="medName">
                             ${medJsonData[i].medicines[j]}
                         </div>
-                        <div class="price">
-                            Price- <span>${(medJsonData[i].prices[j]).replace('MRP','')}</span>
-                        </div>
-                        <div class="quantityArea">
-                            <div class="addIcon">
-                                <span class="material-symbols-outlined">
-                                    add
-                                </span>
+                        <div class="baseGroup">
+                            <div class="price">
+                                Price- <span>${(medJsonData[i].prices[j]).replace('MRP','')}</span>
                             </div>
-                            <div class="displayArea">
-                                1
+                            <div class="quantityArea">
+                                <div class="addIcon">
+                                    <span class="material-symbols-outlined">
+                                        add
+                                    </span>
+                                </div>
+                                <div class="displayArea">
+                                    1
+                                </div>
+                                <div class="subtractIcon">
+                                    <span class="material-symbols-outlined">
+                                        remove
+                                    </span>
+                                </div>
                             </div>
-                            <div class="subtractIcon">
-                                <span class="material-symbols-outlined">
-                                    remove
-                                </span>
+                            <div class="addToCartArea">
+                                <div class="addToCartBtn">
+                                    Add to Cart
+                                </div>
                             </div>
-                        </div>
-                        <div class="addToCartArea">
-                            <div class="addToCartBtn">
-                                Add to Cart
+                            <div class="cardSource">
+                                Source: <span><a href="${medJsonData[i].hyperLinks[j]}" target="_blank">${sources[i]}</a></span>
                             </div>
-                        </div>
-                        <div class="cardSource">
-                            Source: <span><a href="${medJsonData[i].hyperLinks[j]}" target="_blank">${sources[i]}</a></span>
                         </div>
                     </div>`;
         }
