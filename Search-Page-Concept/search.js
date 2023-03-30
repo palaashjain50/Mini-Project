@@ -78,7 +78,7 @@ searchBtn.addEventListener('click', (event)=>{
     })
     .then(response => response.json())
     .then(data => displayCards([data.tata1mg, data.apollo, data.pharmeasy]))
-    .catch(error => console.error(error));
+    .catch(error => searchInfo.innerHTML='Cannot connect to the server :(');
 
 });
 
