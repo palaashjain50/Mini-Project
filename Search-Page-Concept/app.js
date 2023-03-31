@@ -186,7 +186,51 @@ app.post('/', async (req, res) => {
                     ]
                 };
             }
-            console.log(tata1mg.medicines);
+//fetching images from here
+let divs = $("div");
+let html = divs.html();
+
+let startLink = "https://onemg.gumlet.io/";
+let startLength = startLink.length;
+let docLength = html.length;
+const img1 = ".png";
+const img2 = ".jpg";
+let images = [];
+
+for (var i = 0; i < docLength - startLength; ++i)
+{
+    if (html.slice(i, i + startLength) === startLink)
+    {
+        let tempStart = i;
+        let end = "\"";
+        while (html.charAt(i) !== end)
+        {
+            ++i;
+        }
+        let tempEnd = i;
+        i = i + 4;
+        if (html.slice(i, i + 4) === "name")
+        {
+            var tempUrl = html.slice(tempStart, tempEnd);
+            images.push(tempUrl);
+        }
+    }
+}
+if (ads_flag == 1)
+{
+    tata1mg.images.push(images[0]);
+    tata1mg.images.push(images[1]);
+    tata1mg.images.push(images[3]);
+    tata1mg.images.push(images[4]);
+}
+else
+{
+    tata1mg.images.push(images[0]);
+    tata1mg.images.push(images[1]);
+    tata1mg.images.push(images[2]);
+    tata1mg.images.push(images[3]);   
+}
+//ending fetching images
 
 
             // Scraping from apollopharmacy
@@ -262,10 +306,10 @@ app.post('/', async (req, res) => {
                         //     $(price[3]).text()
                         // ],
                         prices: [
-                            $(prices2[0]).children('span').text(),
-                            $(prices2[1]).children('span').text(),
-                            $(prices2[2]).children('span').text(),
-                            $(prices2[3]).children('span').text()
+                            $(prices2[0]).children('span').first().text(),
+                            $(prices2[1]).children('span').first().text(),
+                            $(prices2[2]).children('span').first().text(),
+                            $(prices2[3]).children('span').first().text()
                         ],
                         images: [
                             getSrc($(image[0]).text()), 
@@ -288,7 +332,7 @@ app.post('/', async (req, res) => {
                         // for(i=0; i<4; i++){
                             // if(tata1mg.medicines[i]!=""){
                                 // var url1 = tata1mg.hyperLinks[i];
-                                tata1mg.images = await getArr(url1);
+                                // tata1mg.images = await getArr(url1);
                                 // $ = cheerio.load(html);
                                 // var image = $('.style__image___Ny-Sa.style__loaded___22epL');
                                 // if(image['length']==0){
