@@ -42,7 +42,13 @@
             <!-- The One Step Solution to Your Medication Needs -->
         </div>
     </div>
+    <!-- Search box + Result + Cart -->
     <div id="searchPageContent">
+        <div id="summaryBtn">
+            <button>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+        </div>
         <div id="searchBoxHeader">
             <div id="formContainer">
                 <form target="transFrame" action="http://localhost:3000/" method="POST">
@@ -99,6 +105,89 @@
                 </div> -->
             </div>
         </div>  
+        <div class="summary_container">
+            <header>
+                 <p>MY CART</p>
+                 <i class="fa-solid fa-x closeicon"></i>
+            </header>
+            <div class="summaryBox_parent">
+                <div class="cart_view">
+                    <!-- <div class="cartCard">
+                        <a href="" class="imgLink"><img src="" alt=""></a>
+                        <div class="medDescription">
+                            <a href="" class="medLink"><p class="med_name">Otrivin Oxy Fast Relief Adult Nasal Spray </p></a>
+                            <p class="priceViewParent">
+                                <span class="mrpView">29.9</span>
+                                <span class="priceView">29</span>
+                            </p>
+                        </div>
+                        <div class="counter">
+                            <div><i class="fa-solid fa-minus"></i></div>
+                            <p>1</p>
+                            <div><i class="fa-solid fa-plus"></i></div>
+                        </div>
+                        <p class="tata1mg_tag">Tata 1mg</p>
+                        <p class="removeTag">
+                            <i class="fa-sharp fa-solid fa-trash"></i>
+                        </p>
+                    </div> -->
+                </div> 
+                <!-- Will be added dynamically -->
+                <div class="summary_div">
+                    <p class="summary_txt">Summary</p>
+                    <div class="summary_desc">
+                        <div class="tata1mg_summary">
+                            <header class="summary_header">TATA 1MG</header>
+                            <div class="summary_content">
+                                <div class="summary_content_box">
+                                    <p >Crocin 650 Advance Tablet</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="summary_content_box">
+                                    <p>Crocin 650 Advance Tablet</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="summary_content_box">
+                                    <p>Crocin 240mg Ds Mixed Fruit Flavour Bottle Of 100ml Suspension</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="summary_content_box">
+                                    <p >Crocin 650 Advance Tablet</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="summary_content_box">
+                                    <p>Crocin 650 Advance Tablet</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                                <div class="summary_content_box">
+                                    <p>Crocin 240mg Ds Mixed Fruit Flavour Bottle Of 100ml Suspension</p>
+                                    <p>10</p>
+                                    <p>100</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="apollo_summary">
+                            <header class="summary_header">APOLLO</header>
+                            <div class="summary_content">
+                                    Empty
+                            </div>
+                            
+                        </div>
+                        <div class="pharmeasy_summary">
+                            <header class="summary_header">PHARMEASY</header>
+                            <div class="summary_content">
+                                    Empty
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="footer">
         <div id="footerBg">
@@ -145,11 +234,14 @@
             </div>
         </div>
     </div>
+    <!-- for cart icon -->
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
     <!-- for typing animation -->
     <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
-    <!-- server side script -->
-    <!-- <script src="../javascript/app.js"></script> -->
     <!-- page specific js file -->
     <script src="search.js"></script>
+    <!-- server side script -->
+    <!-- <script src="app.js"></script> -->
+    
 </body>
 </html>
