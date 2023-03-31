@@ -23,7 +23,7 @@ let searchCards = document.getElementById("searchCards");
 let searchBtn = document.getElementById("searchBtn");
 var inputVal=document.getElementById("medicine_name");
 let sources = ['Tata1mg', 'Apollo Pharmacy', 'Pharmeasy'];
-
+var CartArr = [];
 //adding event listener to search btn to get to know when exactly to update data
 searchBtn.addEventListener('click', (event)=>{
     event.preventDefault();
@@ -77,13 +77,89 @@ searchBtn.addEventListener('click', (event)=>{
     body: JSON.stringify({ name: inputVal.value })
     })
     .then(response => response.json())
-    .then(data => displayCards([data.tata1mg, data.apollo, data.pharmeasy]))
+    .then(data => {
+        console.log('Data');
+        var imgArr = [];
+        var url = [];
+        displayCards([data.tata1mg, data.apollo, data.pharmeasy],imgArr,url);
+        let searchCard =  document.querySelectorAll(".searchCard");
+        // var imgFullURL = document.querySelector('.medImg').src;
+        // console.log(imgFullURL);
+        console.log(imgArr);
+        let medName = document.querySelectorAll(".medName");
+        let price = document.querySelectorAll(".price");
+        let addToCartBtn = document.querySelectorAll(".addToCartArea");
+        let addIcon = document.querySelectorAll(".addIcon");
+        let displayArea = document.querySelectorAll(".displayArea");
+        let subtractIcon = document.querySelectorAll(".subtractIcon");
+        let links = document.querySelectorAll(".link");
+        let cart_view = document.querySelector(".cart_view");
+        // console.log(imgSrc);
+        addToCartBtn.forEach((addCard, index) => { 
+            addCard.addEventListener('click', () => {
+                console.log('clicked');
+                cart_view.innerHTML += `
+                <div class="cartCard">
+                    <img src="${imgArr[index]}"  alt="">
+                    <div class="medDescription">
+                        <p class="med_name"><a href="${url[index]}" target="_blank">${medName[index].innerText}</a></p>
+                        <p class="priceViewParent">
+                            <span class="priceView">${(price[index].innerText).replace('Price-','')}</span>
+                        </p>
+                    </div>
+                    <div class="counter">
+                        <div><i class="fa-solid fa-minus"></i></div>
+                        <p>1</p>
+                        <div><i class="fa-solid fa-plus"></i></div>
+                    </div>
+                    <p class="tata1mg_tag">Tata 1mg</p>
+                    <p class="removeTag">
+                        <i class="fa-sharp fa-solid fa-trash"></i>
+                    </p>
+                </div> `;
+                CartArr.push(cart_view);
+            });
+        });
+        addIcon.forEach((icon, index) => {
+            icon.addEventListener('click', () => {
+                console.log('add');
+                let value = parseInt(displayArea[index].innerText);
+                value += 1;
+                displayArea[index].innerText = value;
+                // updateCart(value,medName[index].innerText);
+            });
+        });
+        subtractIcon.forEach((icon, index) => {
+            icon.addEventListener('click', () => {
+                let value = parseInt(displayArea[index].innerText);
+                value -= 1;
+                if(value >= 0) {
+                    displayArea[index].innerText = value;
+                    // updateCart(value,medName[index].innerText);
+                }
+            });
+        });
+        let summaryBtn = document.querySelector("#summaryBtn");
+        summaryBtn.addEventListener('click', () => {
+            if(CartArr.length > 0) {
+                let cartCard = document.querySelectorAll(".cartCard");
+                let removeTag = document.querySelectorAll(".removeTag");
+                removeTag.forEach((tag, index) => {
+                    tag.addEventListener('click', () => {
+                        cartCard[index].remove();
+                        CartArr.splice(index,1);
+                    });
+                });
+            }
+        });
+    })
     .catch(error => searchInfo.innerHTML='Cannot connect to the server :(');
 
 });
+    
 
 //function to display all the search cards
-function displayCards(medJsonData){
+function displayCards(medJsonData,imgArr,url){
     searchInfo.innerHTML='';
     searchCards.innerHTML='';
     searchInfo.innerHTML=`Showing results for ${inputVal.value}...`;
@@ -92,10 +168,12 @@ function displayCards(medJsonData){
                 if(medJsonData[i].medicines[j]==''){
                     continue;
                 }
+                imgArr.push(medJsonData[i].images[j]);
+                url.push(medJsonData[i].hyperLinks[j]);
                 searchCards.innerHTML+=`
                     <div class="searchCard">
                         <div class="imageArea">
-                            <img src="${medJsonData[i].images[j]}" alt="${medJsonData[i].medicines[j]}">
+                            <img src="${medJsonData[i].images[j]}" alt="${medJsonData[i].medicines[j]}" class="medImg">
                         </div>
                         <div class="medName">
                             ${medJsonData[i].medicines[j]}
@@ -125,12 +203,13 @@ function displayCards(medJsonData){
                                 </div>
                             </div>
                             <div class="cardSource">
-                                Source: <span><a href="${medJsonData[i].hyperLinks[j]}" target="_blank">${sources[i]}</a></span>
+                                Source: <span><a href="${medJsonData[i].hyperLinks[j]}" target="_blank" class="link">${sources[i]}</a></span>
                             </div>
                         </div>
                     </div>`;
         }
     }
+
 }
 
 //to show the results whenever required
@@ -146,3 +225,30 @@ function displayCards(medJsonData){
 //         displayCards(data);
 //     });
 // });
+
+// Implementation of Cart button and containers swapping.
+const viewCartBtn = document.querySelector("#summaryBtn");
+const summaryContainer = document.querySelector(".summary_container");
+const searchResultBox = document.querySelector("#searchResultBox");
+const closeIcon = document.querySelector(".fa-x");
+const searchBox = document.querySelector("#medicine_name");
+
+viewCartBtn.addEventListener('click', () => {
+    searchResultBox.classList.add("inactive");
+    summaryContainer.classList.add("active");
+    viewCartBtn.classList.add("inactive");
+});
+
+closeIcon.addEventListener('click', () => {
+    summaryContainer.classList.remove("active");
+    searchResultBox.classList.remove("inactive");
+    viewCartBtn.classList.remove("inactive");
+});
+
+searchBox.addEventListener('click',() => {
+    summaryContainer.classList.remove("active");
+    searchResultBox.classList.remove("inactive");
+    viewCartBtn.classList.remove("inactive");
+});
+
+
