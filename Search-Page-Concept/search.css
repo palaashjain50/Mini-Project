@@ -1,7 +1,28 @@
+/* Reference for custom scroll bar */
+/* https://stackoverflow.com/questions/50817727/change-scrollbar-height */
+
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@1&display=swap');
+
+::-webkit-scrollbar {
+    width: 4px;   
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 4px;
+    height: 10%;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(83, 127, 210);
+}
+
 /* base background */
 #searchPageContent{
     background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
     font-weight: bolder;
+    position: relative;
+    /* max-height: 1550px; */
 }
 
 /* search box header */
@@ -171,4 +192,342 @@ input:focus{
 .cardSource>span>a{
     text-decoration: none;
     color: #12c600;
+}
+
+/* sticky doesn't work for button */
+/* Sticky doesn't work for aligning items to right/left */
+
+#summaryBtn{ 
+    margin-top: 30px;
+    background-color: #051937;
+    position: sticky;
+    top: 0;
+    display: inline-block;
+
+    /* Bad practice */
+    float: right;
+
+    /* Not responsive */
+    /* margin-left: 1450px; */  
+}
+
+#summaryBtn > button {
+    border: none;
+    outline: none;
+    margin-right: 5px;
+    padding: 5px 5px;
+    background-color: #051937;
+    border: 1px solid rgb(83, 127, 210);
+    border-radius: 5px;
+}
+
+.fa-cart-shopping {
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+
+.fa-cart-shopping:hover {
+    transition: color 0.3s;
+    color: rgb(83, 127, 210);
+}
+
+.animateCartIcon{
+    animation: wobble-hor-bottom 0.8s 1s both;
+}
+
+@keyframes wobble-hor-bottom {
+    0%,
+    100% {
+        transform: translateX(0%);
+        transform-origin: 50% 50%;
+    }
+    15% {
+        transform: translateX(-10px) rotate(-6deg);
+    }
+    30% {
+        transform: translateX(9px) rotate(6deg);
+    }
+    45% {
+        transform: translateX(-9px) rotate(-3.6deg);
+    }
+    60% {
+        transform: translateX(4px) rotate(2.4deg);
+    }
+    75% {
+        transform: translateX(-4px) rotate(-1.2deg);
+    }
+}
+
+.summary_container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: translate 2s;
+    position: absolute;
+    left: 48%;
+    top: 40%;
+    translate: -50% -50%;    
+    /* position: relative;
+    top: -900px;
+    left: 280px; */
+    width: 900px;
+    height: 700px;
+    overflow: hidden;
+    background: #00000088;
+    scale: 0;
+    z-index: 2;
+    border: 1px solid rgba(182, 215, 231, 0.522);
+    border-radius: 6px;
+    color: white;
+}
+
+.summary_container > header {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 2px solid rgb(83, 127, 210);
+}
+
+header > p {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+header > i {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 1.2rem;
+}
+
+header > i:hover {
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    color: rgb(83, 127, 210);
+}
+
+.summaryBox_parent {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+}
+
+.cart_view {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow: scroll;
+    height: 100%;
+    max-height: 100vh;
+    padding: 0px 10px;
+}
+
+.cartCard {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    border: 1px solid rgba(182, 215, 231, 0.522);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.imgLink{
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.cartCard > img {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 50px;
+    height: 50px;
+    /* cursor: pointer;  */
+}
+
+
+.medDescription {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.med_name {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 1.07rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+}
+
+.med_name > a{
+    text-decoration: none;
+    color: white;
+}
+
+.med_name > a:hover{
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    color: rgb(83, 127, 210);
+}
+
+.priceViewParent{
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 2px;
+    font-size: 1.09rem;
+}
+
+.mrpView {
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: rgb(241, 84, 84);
+    text-decoration: line-through;
+}
+
+.counter{
+    /* overflow-x: hidden;
+    overflow-y: auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.counter > div{
+    padding: 5px;    
+    width: 15px;
+    height: 15px;
+    background-color: #0c2d5c;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.counter > div:hover{
+    background-color: rgb(83, 127, 210);  
+}
+
+.counter > p{
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 5px;
+    font-weight: 600;
+}
+
+.fa-trash:hover{
+    cursor: pointer;
+    transition: color 0.3s;
+    color: rgb(83, 127, 210);  
+}
+
+.tata1mg_tag{
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-weight: 100;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: 'Changa One', cursive;
+    padding: 5px;
+    background-color: rgb(133, 132, 132);
+    color: white;
+    /* text-shadow: 1px 1px 0px black; */
+}
+
+.tata1mg_tag:hover{
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: black;
+    
+}
+
+.summary_div {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding:0px 5px;
+}
+
+.summary_txt {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.summary_desc{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 600px;
+    display: grid;
+    grid-template-rows: repeat(3,1fr);
+    gap: 0;
+}
+
+.tata1mg_summary, .apollo_summary, .pharmeasy_summary {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.summary_header {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgb(83, 127, 210);
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    border-radius: 5px;
+    padding-left: 10px; 
+    font-weight: 700;
+}
+
+.summary_content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 25px;
+    height: 100%;
+}
+
+.summary_content_box{
+    /* overflow-x: hidden; */
+    /* overflow-y: auto; */
+    /* display: flex;
+    justify-content: space-between; */
+    margin-bottom: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 3fr 0.3fr 0.5fr ;
+    height: 50px;
+}
+
+.active {
+    transition: scale 1s;
+    scale: 1;
+}
+
+.inactive {
+    transition: scale 1s;
+    scale: 0;
 }
