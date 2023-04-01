@@ -24,6 +24,11 @@ let searchBtn = document.getElementById("searchBtn");
 var inputVal=document.getElementById("medicine_name");
 let sources = ['Tata1mg', 'Apollo Pharmacy', 'Pharmeasy'];
 var CartArr = [];
+var companyNameForCart = [];
+
+let summaryBtn = document.querySelector(".summaryBtn");
+summaryBtn.classList.add("summaryBtnInactive");
+
 //adding event listener to search btn to get to know when exactly to update data
 searchBtn.addEventListener('click', (event)=>{
     event.preventDefault();
@@ -67,8 +72,6 @@ searchBtn.addEventListener('click', (event)=>{
     // }
     // getData();
         
-
-
     fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
@@ -81,7 +84,8 @@ searchBtn.addEventListener('click', (event)=>{
         console.log('Data');
         var imgArr = [];
         var url = [];
-        displayCards([data.tata1mg, data.apollo, data.pharmeasy],imgArr,url);
+        var companyName = [];
+        displayCards([data.tata1mg, data.apollo, data.pharmeasy],imgArr,url,companyName);
         let searchCard =  document.querySelectorAll(".searchCard");
         // var imgFullURL = document.querySelector('.medImg').src;
         // console.log(imgFullURL);
@@ -92,12 +96,16 @@ searchBtn.addEventListener('click', (event)=>{
         let addIcon = document.querySelectorAll(".addIcon");
         let displayArea = document.querySelectorAll(".displayArea");
         let subtractIcon = document.querySelectorAll(".subtractIcon");
-        let links = document.querySelectorAll(".link");
+        // let companyName = document.querySelectorAll(".link");
+        // console.log(companyName[0].getAttribute("value"));
         let cart_view = document.querySelector(".cart_view");
+        let cartIcon = document.querySelector(".fa-cart-shopping"); 
         // console.log(imgSrc);
         addToCartBtn.forEach((addCard, index) => { 
             addCard.addEventListener('click', () => {
+                if(cartIcon.classList.contains('animateCartIcon')) cartIcon.classList.remove("animateCartIcon");
                 console.log('clicked');
+                companyNameForCart.push(companyName[index]);
                 cart_view.innerHTML += `
                 <div class="cartCard">
                     <img src="${imgArr[index]}"  alt="">
@@ -109,15 +117,17 @@ searchBtn.addEventListener('click', (event)=>{
                     </div>
                     <div class="counter">
                         <div><i class="fa-solid fa-minus"></i></div>
-                        <p>1</p>
+                        <p class="val">1</p>
                         <div><i class="fa-solid fa-plus"></i></div>
                     </div>
-                    <p class="tata1mg_tag">Tata 1mg</p>
+                    <p class="company_tag"></p>
                     <p class="removeTag">
                         <i class="fa-sharp fa-solid fa-trash"></i>
                     </p>
                 </div> `;
                 CartArr.push(cart_view);
+                if(summaryBtn.classList.contains('summaryBtnInactive')) summaryBtn.classList.remove('summaryBtnInactive');
+                cartIcon.classList.add("animateCartIcon");
             });
         });
         addIcon.forEach((icon, index) => {
@@ -126,7 +136,7 @@ searchBtn.addEventListener('click', (event)=>{
                 let value = parseInt(displayArea[index].innerText);
                 value += 1;
                 displayArea[index].innerText = value;
-                // updateCart(value,medName[index].innerText);
+                updateQtyInCart(value,medName[index].innerText);
             });
         });
         subtractIcon.forEach((icon, index) => {
@@ -135,31 +145,75 @@ searchBtn.addEventListener('click', (event)=>{
                 value -= 1;
                 if(value >= 0) {
                     displayArea[index].innerText = value;
-                    // updateCart(value,medName[index].innerText);
+                    updateQtyInCart(value,medName[index].innerText);
                 }
             });
         });
-        let summaryBtn = document.querySelector("#summaryBtn");
+        // Updation of qty in Cart Container as per UI qty
+        function updateQtyInCart(val, mediName) {
+            let med_name = document.querySelectorAll(".med_name");
+            let qty = document.querySelectorAll(".val");
+            med_name.forEach((med, index) => {
+                console.log('update qty');
+                if(med_name[index].innerText === mediName) {
+                    qty[index].innerText = val; 
+                }
+            });
+        }
+        //Implemenation of Cart Container Items
+        summaryBtn = document.querySelector(".summaryBtn");
         summaryBtn.addEventListener('click', () => {
+            let cartCard = document.querySelectorAll(".cartCard");
             if(CartArr.length > 0) {
-                let cartCard = document.querySelectorAll(".cartCard");
+                // Updating company Tag 
+                let company_tag = document.querySelectorAll(".company_tag");
+                company_tag.forEach((tagname, index) => {
+                    tagname.innerText = companyNameForCart[index];
+                })
+                // Remove item from cart implementation
                 let removeTag = document.querySelectorAll(".removeTag");
                 removeTag.forEach((tag, index) => {
                     tag.addEventListener('click', () => {
                         cartCard[index].remove();
                         CartArr.splice(index,1);
+                        companyNameForCart.splice(index,1);
+                    });
+                });
+                // Counter Implementation
+                let minus = document.querySelectorAll(".fa-minus");
+                let qty = document.querySelectorAll(".val");
+                let plus = document.querySelectorAll(".fa-plus");
+                minus.forEach((icon, index) => {
+                    icon.addEventListener('click', () => {
+                        let val = parseInt(qty[index].innerText);
+                        val -= 1;
+                        if(val > 0) {
+                            qty[index].innerText = val;
+                        }
+                        else if(val == 0) {
+                            cartCard[index].remove();
+                            CartArr.splice(index,1);
+                        }
+                        // updateQtyInUI(val);
+                    });
+                });
+                plus.forEach((icon, index) => {
+                    icon.addEventListener('click', () => {
+                        let val = parseInt(qty[index].innerText);
+                        val += 1;
+                        qty[index].innerText = val;
+                        // updateQtyInUI(val);
                     });
                 });
             }
         });
     })
     .catch(error => searchInfo.innerHTML='Cannot connect to the server :(');
-
 });
     
 
 //function to display all the search cards
-function displayCards(medJsonData,imgArr,url){
+function displayCards(medJsonData,imgArr,url,companyName){
     searchInfo.innerHTML='';
     searchCards.innerHTML='';
     searchInfo.innerHTML=`Showing results for ${inputVal.value}...`;
@@ -170,6 +224,7 @@ function displayCards(medJsonData,imgArr,url){
                 }
                 imgArr.push(medJsonData[i].images[j]);
                 url.push(medJsonData[i].hyperLinks[j]);
+                companyName.push(sources[i]);
                 searchCards.innerHTML+=`
                     <div class="searchCard">
                         <div class="imageArea">
@@ -227,7 +282,7 @@ function displayCards(medJsonData,imgArr,url){
 // });
 
 // Implementation of Cart button and containers swapping.
-const viewCartBtn = document.querySelector("#summaryBtn");
+const viewCartBtn = document.querySelector(".summaryBtn");
 const summaryContainer = document.querySelector(".summary_container");
 const searchResultBox = document.querySelector("#searchResultBox");
 const closeIcon = document.querySelector(".fa-x");
