@@ -4,26 +4,20 @@ var typed = new Typed('#slogan', {
     typeSpeed: 20,
 });
 
-//for reading json file
-// function readTextFile(file, callback) {
-//     var rawFile = new XMLHttpRequest();
-//     rawFile.overrideMimeType("application/json");
-//     rawFile.open("GET", file, true);
-//     rawFile.onreadystatechange = function() {
-//         if (rawFile.readyState === 4 && rawFile.status == "200") {
-//             callback(rawFile.responseText);
-//         }
-//     }
-//     rawFile.send(null);
-// }
-
 //taking document objects to update the search information
 let searchInfo = document.getElementById("searchInfo");
 let searchCards = document.getElementById("searchCards");
 let searchBtn = document.getElementById("searchBtn");
 var inputVal=document.getElementById("medicine_name");
 let sources = ['Tata1mg', 'Apollo Pharmacy', 'Pharmeasy'];
-var CartArr = [];
+var miniCards = [];
+
+//selecting some elements to make changes in their relative structure when summary is displayed
+let resultBox = document.getElementById("searchResultBox");
+let summaryBox = document.getElementById("summary_container");
+let summaryBtn = document.querySelector("#summaryBtn");
+summaryBtn.classList.add("summaryBtnInactive");
+
 //adding event listener to search btn to get to know when exactly to update data
 searchBtn.addEventListener('click', (event)=>{
     event.preventDefault();
@@ -32,43 +26,7 @@ searchBtn.addEventListener('click', (event)=>{
         <div><img src="./Images/searchLoading.gif" width="32px" alt="Loading..."></div>
     `;
     searchCards.innerHTML='';
-    // var http = new XMLHttpRequest();
-    // var url = 'http://localhost:3000/';
-    // var params = `name=${inputVal.value}`;
-    // http.open('POST', url, true);
-    // http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // http.onreadystatechange = function(){
-    //     if(http.readyState == 4 && http.status == 200) {
-    //         alert(http.responseText);
-    //     }
-    // }
-    // http.send(params);
-    // event.preventDefault();
-
-    // const xhr = new XMLHttpRequest(); // Create XMLHttpRequest object
-    // xhr.open('POST', 'http://localhost:3000/'); // Open a connection to the server
-    // xhr.setRequestHeader('Content-Type', 'application/json'); // Set request headers 'x-www-form-urlencoded'
-    // xhr.onload = function(){
-    //   // Handle response from the server
-    // };
-
-
-    // xhr.send(JSON.stringify({name: inputVal.value}));
-
-
-    // // xhr.send(`name=${inputVal.value}`); // Send data to the server
     
-    
-    
-    // const getData = async () => {
-    //     const response = await fetch("http://localhost:3000/");
-    //     const data = await response.json();
-    //     console.log(data);
-    // }
-    // getData();
-        
-
-
     fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
@@ -78,79 +36,146 @@ searchBtn.addEventListener('click', (event)=>{
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Data');
-        var imgArr = [];
-        var url = [];
-        displayCards([data.tata1mg, data.apollo, data.pharmeasy],imgArr,url);
-        let searchCard =  document.querySelectorAll(".searchCard");
-        // var imgFullURL = document.querySelector('.medImg').src;
-        // console.log(imgFullURL);
-        console.log(imgArr);
-        let medName = document.querySelectorAll(".medName");
-        let price = document.querySelectorAll(".price");
-        let addToCartBtn = document.querySelectorAll(".addToCartArea");
-        let addIcon = document.querySelectorAll(".addIcon");
-        let displayArea = document.querySelectorAll(".displayArea");
-        let subtractIcon = document.querySelectorAll(".subtractIcon");
-        let links = document.querySelectorAll(".link");
+        displayCards([data.tata1mg, data.apollo, data.pharmeasy]);
+        let addToCartBtns =  document.querySelectorAll(".addToCartBtn");
+        let addIcons = document.querySelectorAll(".addI");
+        let subtractIcons = document.querySelectorAll(".subtractI");
         let cart_view = document.querySelector(".cart_view");
-        // console.log(imgSrc);
-        addToCartBtn.forEach((addCard, index) => { 
-            addCard.addEventListener('click', () => {
-                console.log('clicked');
-                cart_view.innerHTML += `
+        let cartIcon = document.querySelector(".fa-cart-shopping"); 
+        //adding eventlisteners to all the required elements of each card
+        addIcons.forEach(addIcon=>{
+            addIcon.addEventListener('click', (event)=>{
+                var displayElem = event.target.parentElement.parentElement.childNodes[3];
+                var currentVal = parseInt(displayElem.innerText);
+                displayElem.innerText=currentVal+1;
+            });
+        });
+        subtractIcons.forEach(subtractIcon=>{
+            subtractIcon.addEventListener('click', (event)=>{
+                var displayElem = event.target.parentElement.parentElement.childNodes[3];
+                var currentVal = parseInt(displayElem.innerText);
+                if(currentVal>=2){
+                    displayElem.innerText=currentVal-1;
+                }
+            });
+        });
+        function addingToCart(event){
+            event.target.removeEventListener('click',addingToCart);
+            setTimeout(()=>{
+                event.target.style.backgroundColor='#038d04';
+                event.target.innerText='Added to Cart';
+            },300);
+            event.target.addEventListener('click',()=>{
+                event.target.style.animation='shake 0.5s';
+                event.target.style.backgroundColor='#be0404';
+                event.target.innerText='Already Added!'
+                setTimeout(()=>{
+                    event.target.style.animation='';
+                },500);
+            });
+            if(cartIcon.classList.contains('animateCartIcon')) cartIcon.classList.remove("animateCartIcon");
+            var parentCard = event.target.parentElement.parentElement.parentElement;
+            var imageSrc = parentCard.childNodes[1].childNodes[1].src;
+            var medName = parentCard.childNodes[3].innerText;
+            var medLink = parentCard.childNodes[5].childNodes[7].childNodes[1].childNodes[0].href;
+            var medPrice = parentCard.childNodes[5].childNodes[1].childNodes[1].innerText;
+            var company = parentCard.childNodes[5].childNodes[7].childNodes[1].childNodes[0].innerText;
+            var count = parentCard.childNodes[5].childNodes[3].childNodes[3].innerText;
+            var newMiniCard = `
                 <div class="cartCard">
-                    <img src="${imgArr[index]}"  alt="">
+                    <img src="${imageSrc}"  alt="Medicine">
                     <div class="medDescription">
-                        <p class="med_name"><a href="${url[index]}" target="_blank">${medName[index].innerText}</a></p>
+                        <p class="med_name"><a href="${medLink}" target="_blank">${medName}</a></p>
                         <p class="priceViewParent">
-                            <span class="priceView">${(price[index].innerText).replace('Price-','')}</span>
+                            <span class="priceView">${medPrice}</span>
                         </p>
                     </div>
                     <div class="counter">
                         <div><i class="fa-solid fa-minus"></i></div>
-                        <p>1</p>
+                        <p class="val">${count}</p>
                         <div><i class="fa-solid fa-plus"></i></div>
                     </div>
-                    <p class="tata1mg_tag">Tata 1mg</p>
+                    <p class="company_tag">${company}</p>
                     <p class="removeTag">
                         <i class="fa-sharp fa-solid fa-trash"></i>
                     </p>
                 </div> `;
-                CartArr.push(cart_view);
-            });
+            cart_view.innerHTML+=newMiniCard;
+            if(summaryBtn.classList.contains('summaryBtnInactive')) summaryBtn.classList.remove('summaryBtnInactive');
+            cartIcon.classList.add("animateCartIcon");
+        }
+        addToCartBtns.forEach(btn=>{
+            btn.addEventListener('click',addingToCart);
         });
-        addIcon.forEach((icon, index) => {
-            icon.addEventListener('click', () => {
-                console.log('add');
-                let value = parseInt(displayArea[index].innerText);
-                value += 1;
-                displayArea[index].innerText = value;
-                // updateCart(value,medName[index].innerText);
+        //removing previous event listener and adding new one
+        summaryBtn.removeEventListener('click', summaryHandling);
+        //Implemenation of event listeners on Cart Container Items
+        //function to display cartCards
+        function displayMiniCards(cards){
+            let cart_view = document.querySelector(".cart_view");
+            cart_view.innerHTML='';
+            cards.forEach(card=>{
+                cart_view.innerHTML+=card;
             });
-        });
-        subtractIcon.forEach((icon, index) => {
-            icon.addEventListener('click', () => {
-                let value = parseInt(displayArea[index].innerText);
-                value -= 1;
-                if(value >= 0) {
-                    displayArea[index].innerText = value;
-                    // updateCart(value,medName[index].innerText);
+        }
+        function addIconAction(event){
+            var parentElem = event.target.parentElement.parentElement;
+            var currVal = parseInt(parentElem.childNodes[3].innerText);
+            parentElem.childNodes[3].innerText=currVal+1; 
+        }
+        function subIconAction(event){
+            var parentElem = event.target.parentElement.parentElement;
+            var currVal = parseInt(parentElem.childNodes[3].innerText);
+            if(currVal>=2){
+                parentElem.childNodes[3].innerText=currVal-1;
+            } 
+        }
+        function delAction(event){
+            var cartCards = document.querySelectorAll(".cartCard");
+            miniCards=[];
+            cartCards.forEach(card=>{
+                miniCards.push(card.outerHTML);
+            });
+            var srcStr= event.target.parentElement.parentElement.childNodes[1].src;
+            for(i=0; i<miniCards.length; i++){
+                if(miniCards[i].includes(srcStr)){
+                    miniCards.splice(i,1);
+                    break;
                 }
-            });
-        });
-        let summaryBtn = document.querySelector("#summaryBtn");
-        summaryBtn.addEventListener('click', () => {
-            if(CartArr.length > 0) {
-                let cartCard = document.querySelectorAll(".cartCard");
-                let removeTag = document.querySelectorAll(".removeTag");
-                removeTag.forEach((tag, index) => {
-                    tag.addEventListener('click', () => {
-                        cartCard[index].remove();
-                        CartArr.splice(index,1);
-                    });
-                });
             }
+            displayMiniCards(miniCards);
+            var addIconsSummary = document.querySelectorAll(".fa-plus");
+            var subIconsSummary = document.querySelectorAll(".fa-minus");
+            var delBtns = document.querySelectorAll(".fa-trash");
+            addIconsSummary.forEach(icon=>{
+                icon.addEventListener('click',addIconAction);
+            });
+            subIconsSummary.forEach(icon=>{
+                icon.addEventListener('click',subIconAction);
+            });
+            delBtns.forEach(btn=>{
+                btn.addEventListener('click',delAction);
+            });
+        }
+        summaryBtn.addEventListener('click', () => {
+            resultBox.style.height='730px';
+            summaryBox.style.top='55%';
+            setTimeout(()=>{
+                document.getElementById("summary_container").scrollIntoView({behavior: "smooth"});
+            },900);
+            var addIconsSummary = document.querySelectorAll(".fa-plus");
+            var subIconsSummary = document.querySelectorAll(".fa-minus");
+            var delBtns = document.querySelectorAll(".fa-trash");
+            addIconsSummary.forEach(icon=>{
+                icon.addEventListener('click',addIconAction);
+            });
+            subIconsSummary.forEach(icon=>{
+                icon.addEventListener('click',subIconAction);
+            });
+            delBtns.forEach(btn=>{
+                btn.addEventListener('click',delAction);
+            });
+            updateSummary();
         });
     })
     .catch(error => searchInfo.innerHTML='Cannot connect to the server :(');
@@ -159,7 +184,7 @@ searchBtn.addEventListener('click', (event)=>{
     
 
 //function to display all the search cards
-function displayCards(medJsonData,imgArr,url){
+function displayCards(medJsonData){
     searchInfo.innerHTML='';
     searchCards.innerHTML='';
     searchInfo.innerHTML=`Showing results for ${inputVal.value}...`;
@@ -168,8 +193,6 @@ function displayCards(medJsonData,imgArr,url){
                 if(medJsonData[i].medicines[j]==''){
                     continue;
                 }
-                imgArr.push(medJsonData[i].images[j]);
-                url.push(medJsonData[i].hyperLinks[j]);
                 searchCards.innerHTML+=`
                     <div class="searchCard">
                         <div class="imageArea">
@@ -184,7 +207,7 @@ function displayCards(medJsonData,imgArr,url){
                             </div>
                             <div class="quantityArea">
                                 <div class="addIcon">
-                                    <span class="material-symbols-outlined">
+                                    <span class="material-symbols-outlined addI" style="width: 63px;">
                                         add
                                     </span>
                                 </div>
@@ -192,7 +215,7 @@ function displayCards(medJsonData,imgArr,url){
                                     1
                                 </div>
                                 <div class="subtractIcon">
-                                    <span class="material-symbols-outlined">
+                                    <span class="material-symbols-outlined subtractI" style="width: 63px;">
                                         remove
                                     </span>
                                 </div>
@@ -212,19 +235,17 @@ function displayCards(medJsonData,imgArr,url){
 
 }
 
-//to show the results whenever required
-//setInterval(()=>{
-    // readTextFile("med.json", function(text){
-    //     var data = JSON.parse(text);
-    //     displayCards(data);
-    // });
-//},100);
-// window.addEventListener('load',()=>{
-//     readTextFile("med.json", function(text){
-//         var data = JSON.parse(text);
-//         displayCards(data);
-//     });
-// });
+//function to handle search page structure when summary is displayed
+function summaryHandling(){
+    // console.log('clicked');
+    resultBox.style.height='730px';
+    summaryBox.style.top='55%';
+    setTimeout(()=>{
+        document.getElementById("summary_container").scrollIntoView({behavior: "smooth"});
+    },900);
+}
+//initial event listener when no results displayed
+summaryBtn.addEventListener('click', summaryHandling);
 
 // Implementation of Cart button and containers swapping.
 const viewCartBtn = document.querySelector("#summaryBtn");
@@ -240,6 +261,8 @@ viewCartBtn.addEventListener('click', () => {
 });
 
 closeIcon.addEventListener('click', () => {
+    resultBox.style.height='';
+    summaryBox.style.top='40%';
     summaryContainer.classList.remove("active");
     searchResultBox.classList.remove("inactive");
     viewCartBtn.classList.remove("inactive");
@@ -251,4 +274,67 @@ searchBox.addEventListener('click',() => {
     viewCartBtn.classList.remove("inactive");
 });
 
+//function for updating the summary
+function updateSummary(){
+    let tata1mgSummary = document.querySelector(".tata1mg_summary");
+    let apolloSummary = document.querySelector(".apollo_summary");
+    let pharmeasySummary = document.querySelector(".pharmeasy_summary");
+    tata1mgSummary.childNodes[3].innerHTML='';
+    apolloSummary.childNodes[3].innerHTML='';
+    pharmeasySummary.childNodes[3].innerHTML='';
+    let cards = document.querySelectorAll(".cartCard");
+    let medName, medPrice, medQty, temp;
+    let tata1mgTotal=0, apolloTotal=0, pharmeasyTotal=0;  
+    cards.forEach(card=>{
+        medName=card.childNodes[3].childNodes[1].innerText;
+        medPrice=card.childNodes[3].childNodes[3].innerText;
+        medQty=card.childNodes[5].childNodes[3].innerText;
+        temp=medPrice;
+        if(temp.includes(")")){
+            temp=temp.split(")")[1];
+        }
+        temp=temp.replace('₹','');
+        if(card.outerHTML.includes("Tata1mg")){
+            tata1mgTotal+=parseInt(medQty)*parseFloat(temp);
+            tata1mgSummary.childNodes[3].innerHTML+=`
+                <div class="summary_content_box">
+                    <p >${medName}</p>
+                    <p>${medQty}</p>
+                    <p>${medPrice}</p>
+                </div>`;
+        }
+        else if(card.outerHTML.includes("Apollo Pharmacy")){
+            apolloTotal+=parseInt(medQty)*parseFloat(temp);
+            apolloSummary.childNodes[3].innerHTML+=`
+                <div class="summary_content_box">
+                    <p >${medName}</p>
+                    <p>${medQty}</p>
+                    <p>${medPrice}</p>
+                </div>`;
+        }
+        else if(card.outerHTML.includes("Pharmeasy")){
+            pharmeasyTotal+=parseInt(medQty)*parseFloat(temp);
+            pharmeasySummary.childNodes[3].innerHTML+=`
+                <div class="summary_content_box">
+                    <p >${medName}</p>
+                    <p>${medQty}</p>
+                    <p>${medPrice}</p>
+                </div>`;
+        }
+    });
+    if(tata1mgSummary.childNodes[3].innerHTML==''){
+        tata1mgSummary.childNodes[3].innerHTML='Empty'
+    }
+    if(apolloSummary.childNodes[3].innerHTML==''){
+        apolloSummary.childNodes[3].innerHTML='Empty'
+    }
+    if(pharmeasySummary.childNodes[3].innerHTML==''){
+        pharmeasySummary.childNodes[3].innerHTML='Empty'
+    }
+    tata1mgSummary.childNodes[1].childNodes[1].innerText=`₹${tata1mgTotal}`;
+    apolloSummary.childNodes[1].childNodes[1].innerText=`₹${apolloTotal}`;
+    pharmeasySummary.childNodes[1].childNodes[1].innerText=`₹${pharmeasyTotal}`;
+    let cartTotal=document.querySelector(".summary_container");
+    cartTotal.childNodes[1].childNodes[1].childNodes[1].innerText=`₹${tata1mgTotal+apolloTotal+pharmeasyTotal}`;
+}
 

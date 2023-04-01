@@ -198,12 +198,12 @@ input:focus{
 /* Sticky doesn't work for aligning items to right/left */
 
 #summaryBtn{ 
-    margin-top: 30px;
-    background-color: #051937;
+    margin-top: 36px;
+    background-color: transparent/*#051937*/;
     position: sticky;
-    top: 0;
+    top: 5px;
     display: inline-block;
-
+    /* display: none; */
     /* Bad practice */
     float: right;
 
@@ -211,13 +211,17 @@ input:focus{
     /* margin-left: 1450px; */  
 }
 
+.summaryBtnInactive{
+    visibility: hidden;
+}
+
 #summaryBtn > button {
     border: none;
     outline: none;
     margin-right: 5px;
     padding: 5px 5px;
-    background-color: #051937;
-    border: 1px solid rgb(83, 127, 210);
+    background-color: transparent/*#051937*/;
+    /* border: 1px solid rgb(83, 127, 210); */
     border-radius: 5px;
 }
 
@@ -323,7 +327,7 @@ header > i:hover {
 .cart_view {
     overflow-x: hidden;
     overflow-y: auto;
-    overflow: scroll;
+    /* overflow: scroll; */
     height: 100%;
     max-height: 100vh;
     padding: 0px 10px;
@@ -508,6 +512,7 @@ header > i:hover {
     overflow-y: auto;
     margin-top: 25px;
     height: 100%;
+    padding-bottom: 42px;
 }
 
 .summary_content_box{
@@ -531,3 +536,28 @@ header > i:hover {
     transition: scale 1s;
     scale: 0;
 }
+
+/* for shaking text animation */
+@keyframes shake{
+    0%{
+      transform: translateX(0)
+    }
+    15%{
+      transform: translateX(5px);
+    }
+    30%{
+        transform: translateX(-5px);
+    }
+    45%{
+        transform: translateX(0px);
+    }
+    60%{
+        transform: translateX(5px);
+    }
+    75%{
+        transform: translateX(-5px);
+    } 
+    100%{
+      transform: translateX(0px);
+    }
+  }
