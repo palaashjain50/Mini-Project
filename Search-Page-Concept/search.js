@@ -80,7 +80,7 @@ searchBtn.addEventListener('click', (event)=>{
             var medLink = parentCard.childNodes[5].childNodes[7].childNodes[1].childNodes[0].href;
             var medPrice = parentCard.childNodes[5].childNodes[1].childNodes[1].innerText;
             var company = parentCard.childNodes[5].childNodes[7].childNodes[1].childNodes[0].innerText;
-            var count = parentCard.childNodes[5].childNodes[3].childNodes[3].innerText;
+            // var count = parentCard.childNodes[5].childNodes[3].childNodes[3].innerText;
             var newMiniCard = `
                 <div class="cartCard">
                     <img src="${imageSrc}"  alt="Medicine">
@@ -92,7 +92,7 @@ searchBtn.addEventListener('click', (event)=>{
                     </div>
                     <div class="counter">
                         <div><i class="fa-solid fa-minus"></i></div>
-                        <p class="val">${count}</p>
+                        <p class="val">1</p>
                         <div><i class="fa-solid fa-plus"></i></div>
                     </div>
                     <p class="company_tag">${company}</p>
@@ -122,6 +122,7 @@ searchBtn.addEventListener('click', (event)=>{
             var parentElem = event.target.parentElement.parentElement;
             var currVal = parseInt(parentElem.childNodes[3].innerText);
             parentElem.childNodes[3].innerText=currVal+1; 
+            updateSummary();
         }
         function subIconAction(event){
             var parentElem = event.target.parentElement.parentElement;
@@ -129,6 +130,7 @@ searchBtn.addEventListener('click', (event)=>{
             if(currVal>=2){
                 parentElem.childNodes[3].innerText=currVal-1;
             } 
+            updateSummary();
         }
         function delAction(event){
             var cartCards = document.querySelectorAll(".cartCard");
@@ -156,8 +158,15 @@ searchBtn.addEventListener('click', (event)=>{
             delBtns.forEach(btn=>{
                 btn.addEventListener('click',delAction);
             });
+            updateSummary();
         }
         summaryBtn.addEventListener('click', () => {
+            var cartCards = document.querySelectorAll(".cartCard");
+            miniCards=[];
+            cartCards.forEach(card=>{
+                miniCards.push(card.outerHTML);
+            });
+            displayMiniCards(miniCards);
             resultBox.style.height='730px';
             summaryBox.style.top='55%';
             setTimeout(()=>{
@@ -205,7 +214,7 @@ function displayCards(medJsonData){
                             <div class="price">
                                 Price- <span>${(medJsonData[i].prices[j]).replace('MRP','')}</span>
                             </div>
-                            <div class="quantityArea">
+                            <!--<div class="quantityArea">
                                 <div class="addIcon">
                                     <span class="material-symbols-outlined addI" style="width: 63px;">
                                         add
@@ -219,7 +228,7 @@ function displayCards(medJsonData){
                                         remove
                                     </span>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="addToCartArea">
                                 <div class="addToCartBtn">
                                     Add to Cart
@@ -232,7 +241,6 @@ function displayCards(medJsonData){
                     </div>`;
         }
     }
-
 }
 
 //function to handle search page structure when summary is displayed
@@ -331,10 +339,10 @@ function updateSummary(){
     if(pharmeasySummary.childNodes[3].innerHTML==''){
         pharmeasySummary.childNodes[3].innerHTML='Empty'
     }
-    tata1mgSummary.childNodes[1].childNodes[1].innerText=`₹${tata1mgTotal}`;
-    apolloSummary.childNodes[1].childNodes[1].innerText=`₹${apolloTotal}`;
-    pharmeasySummary.childNodes[1].childNodes[1].innerText=`₹${pharmeasyTotal}`;
+    tata1mgSummary.childNodes[1].childNodes[1].innerText=`₹${(tata1mgTotal).toFixed(2)}`;
+    apolloSummary.childNodes[1].childNodes[1].innerText=`₹${(apolloTotal).toFixed(2)}`;
+    pharmeasySummary.childNodes[1].childNodes[1].innerText=`₹${(pharmeasyTotal).toFixed(2)}`;
     let cartTotal=document.querySelector(".summary_container");
-    cartTotal.childNodes[1].childNodes[1].childNodes[1].innerText=`₹${tata1mgTotal+apolloTotal+pharmeasyTotal}`;
+    cartTotal.childNodes[1].childNodes[1].childNodes[1].innerText=`₹${(tata1mgTotal+apolloTotal+pharmeasyTotal).toFixed(2)}`;
 }
 

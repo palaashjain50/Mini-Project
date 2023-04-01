@@ -100,7 +100,7 @@ input:focus{
     margin: 20px;
     border-radius: 35px;
     position: relative;
-    min-height: 415px;
+    min-height: 380px; /* 415px */
 }
 
 .imageArea{
