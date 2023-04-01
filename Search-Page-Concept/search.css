@@ -197,13 +197,13 @@ input:focus{
 /* sticky doesn't work for button */
 /* Sticky doesn't work for aligning items to right/left */
 
-#summaryBtn{ 
+.summaryBtn{ 
     margin-top: 30px;
     background-color: #051937;
     position: sticky;
     top: 0;
     display: inline-block;
-
+    /* display: none; */
     /* Bad practice */
     float: right;
 
@@ -211,7 +211,11 @@ input:focus{
     /* margin-left: 1450px; */  
 }
 
-#summaryBtn > button {
+.summaryBtnInactive{
+    display: none;
+}
+
+.summaryBtn > button {
     border: none;
     outline: none;
     margin-right: 5px;
@@ -271,7 +275,7 @@ input:focus{
     top: -900px;
     left: 280px; */
     width: 900px;
-    height: 700px;
+    height: 850px;
     overflow: hidden;
     background: #00000088;
     scale: 0;
@@ -323,7 +327,7 @@ header > i:hover {
 .cart_view {
     overflow-x: hidden;
     overflow-y: auto;
-    overflow: scroll;
+    /* overflow: scroll; */
     height: 100%;
     max-height: 100vh;
     padding: 0px 10px;
@@ -438,7 +442,7 @@ header > i:hover {
     color: rgb(83, 127, 210);  
 }
 
-.tata1mg_tag{
+.company_tag{
     overflow-x: hidden;
     overflow-y: auto;
     font-weight: 100;
@@ -452,7 +456,7 @@ header > i:hover {
     /* text-shadow: 1px 1px 0px black; */
 }
 
-.tata1mg_tag:hover{
+.company_tag:hover{
     overflow-x: hidden;
     overflow-y: auto;
     cursor: pointer;
@@ -502,7 +506,6 @@ header > i:hover {
     padding-left: 10px; 
     font-weight: 700;
 }
-
 .summary_content {
     overflow-x: hidden;
     overflow-y: auto;
