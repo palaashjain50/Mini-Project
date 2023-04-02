@@ -186,51 +186,74 @@ app.post('/', async (req, res) => {
                     ]
                 };
             }
-//fetching images from here
-let divs = $("div");
-let html = divs.html();
+//fetching tata1mg images from here
+// let divs = $("div");
+// let html = divs.html();
 
-let startLink = "https://onemg.gumlet.io/";
-let startLength = startLink.length;
-let docLength = html.length;
-const img1 = ".png";
-const img2 = ".jpg";
-let images = [];
+// let startLink = "https://onemg.gumlet.io/";
+// let startLength = startLink.length;
+// let docLength = html.length;
+// const img1 = ".png";
+// const img2 = ".jpg";
+// let images = [];
 
-for (var i = 0; i < docLength - startLength; ++i)
-{
-    if (html.slice(i, i + startLength) === startLink)
-    {
-        let tempStart = i;
-        let end = "\"";
-        while (html.charAt(i) !== end)
-        {
-            ++i;
-        }
-        let tempEnd = i;
-        i = i + 4;
-        if (html.slice(i, i + 4) === "name")
-        {
-            var tempUrl = html.slice(tempStart, tempEnd);
-            images.push(tempUrl);
-        }
+// for (var i = 0; i < docLength - startLength; ++i)
+// {
+//     if (html.slice(i, i + startLength) === startLink)
+//     {
+//         let tempStart = i;
+//         let end = "\"";
+//         while (html.charAt(i) !== end)
+//         {
+//             ++i;
+//         }
+//         let tempEnd = i;
+//         i = i + 4;
+//         if (html.slice(i, i + 4) === "name")
+//         {
+//             var tempUrl = html.slice(tempStart, tempEnd);
+//             images.push(tempUrl);
+//         }
+//     }
+// }
+// if (ads_flag == 1)
+// {
+//     tata1mg.images.push(images[0]);
+//     tata1mg.images.push(images[1]);
+//     tata1mg.images.push(images[3]);
+//     tata1mg.images.push(images[4]);
+// }
+// else
+// {
+//     tata1mg.images.push(images[0]);
+//     tata1mg.images.push(images[1]);
+//     tata1mg.images.push(images[2]);
+//     tata1mg.images.push(images[3]);   
+// }
+//ending fetching images
+
+//fetching tata1mg images take-2----------------------------------------------------------------------------------------------
+var imgScripts=$("div.content script").first();     //less string to process
+var string=imgScripts.text();
+var images=[];
+string.split("\"").forEach(str=>{
+    if(str.startsWith("https://onemg.gumlet.io/")&&str.includes("h_150")){
+        images.push(str.replace('\\',''));
     }
-}
-if (ads_flag == 1)
-{
+});
+if (ads_flag == 1){
     tata1mg.images.push(images[0]);
     tata1mg.images.push(images[1]);
     tata1mg.images.push(images[3]);
     tata1mg.images.push(images[4]);
 }
-else
-{
+else{
     tata1mg.images.push(images[0]);
     tata1mg.images.push(images[1]);
     tata1mg.images.push(images[2]);
     tata1mg.images.push(images[3]);   
 }
-//ending fetching images
+//----------------------------------------------------------------------------------------------------------fetching ends here
 
 
             // Scraping from apollopharmacy
@@ -286,12 +309,9 @@ else
                 customHeaderRequest4.get(url4, function(err, resp, body){
                     let $ = cheerio.load(body);
                     var pharmeasy;
-                    let med_name = $(".ProductCard_medicineName__8Ydfq"); 
-                    let price = $(".ProductCard_ourPrice__yDytt"); 
+                    let med_name = $(".ProductCard_medicineName__8Ydfq");  
                     let image = $(".ProductCard_medicineImgDefault__Q8XbJ noscript");
                     let hyperLink = $(".ProductCard_medicineUnitWrapper__eoLpy.ProductCard_defaultWrapper__nxV0R");
-                    let prices2 = $(".ProductCard_gcdDiscountContainer__CCi51");
-                    // console.log($(prices2[0]).children('span').html());
                     pharmeasy = {
                         medicines: [
                             $(med_name[0]).text(),
@@ -306,10 +326,7 @@ else
                         //     $(price[3]).text()
                         // ],
                         prices: [
-                            $(prices2[0]).children('span').first().text(),
-                            $(prices2[1]).children('span').first().text(),
-                            $(prices2[2]).children('span').first().text(),
-                            $(prices2[3]).children('span').first().text()
+                            
                         ],
                         images: [
                             getSrc($(image[0]).text()), 
@@ -324,6 +341,19 @@ else
                             "https://www.pharmeasy.in"+$(hyperLink[3]).attr('href')
                         ]
                     };
+                    let priceParent = $(".ProductCard_priceContainer__dqj7Q");
+                    let price = $(".ProductCard_ourPrice__yDytt");
+                    let prices2 = $(".ProductCard_gcdDiscountContainer__CCi51");
+                    let pr_idx = 0;
+                    let pr2_idx = 0;
+                    for (var i = 0; i < 4; ++i)
+                    {
+                        let childText = $(priceParent[i]).text();
+                        if (childText.charAt(0) === "M")
+                            pharmeasy.prices.push($(prices2[pr2_idx++]).children('span').first().text());
+                        else
+                            pharmeasy.prices.push($(price[pr_idx++]).text());
+                    }
                     //for scraping img srcs of 1mg
                     (async function scrape(){
                         
@@ -358,5 +388,3 @@ else
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
-
-
