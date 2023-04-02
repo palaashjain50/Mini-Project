@@ -119,6 +119,7 @@ function updateResultBoxWhenSummaryClosed(){
             for(j=0; j<cartItems.length; j++){
                 if(cartItems[j].outerHTML.includes(medLink)){
                     flag=1;
+                    resultCards[i].childNodes[5].childNodes[3].childNodes[3].innerText=cartItems[j].childNodes[5].childNodes[3].innerText
                     break;
                 }
             }
