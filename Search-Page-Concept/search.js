@@ -11,13 +11,14 @@ let searchBtn = document.getElementById("searchBtn");
 var inputVal=document.getElementById("medicine_name");
 let sources = ['Tata1mg', 'Apollo Pharmacy', 'Pharmeasy'];
 var miniCards = [];
-
+var count = 0;
 //selecting some elements to make changes in their relative structure when summary is displayed
 let resultBox = document.getElementById("searchResultBox");
 let summaryBox = document.getElementById("summary_container");
 let summaryBtn = document.querySelector("#summaryBtn");
 summaryBtn.classList.add("summaryBtnInactive");
-
+let notificationMessContainer = document.querySelector(".notificationMessContainer");
+notificationMessContainer.classList.add("notifInactive");
 //adding event listener to search btn to get to know when exactly to update data
 searchBtn.addEventListener('click', (event)=>{
     event.preventDefault();
@@ -26,7 +27,7 @@ searchBtn.addEventListener('click', (event)=>{
         <div><img src="./Images/searchLoading.gif" width="32px" alt="Loading..."></div>
     `;
     searchCards.innerHTML='';
-    
+    // notificationMessContainer.classList.add("notifInactive");
     fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
@@ -42,6 +43,8 @@ searchBtn.addEventListener('click', (event)=>{
         let subtractIcons = document.querySelectorAll(".subtractI");
         let cart_view = document.querySelector(".cart_view");
         let cartIcon = document.querySelector(".fa-cart-shopping"); 
+        let qtyInCart = document.querySelector(".qtyInCart");
+        let medNameInCart = document.querySelector(".medNameInCart");
         //adding eventlisteners to all the required elements of each card
         addIcons.forEach(addIcon=>{
             addIcon.addEventListener('click', (event)=>{
@@ -60,6 +63,8 @@ searchBtn.addEventListener('click', (event)=>{
             });
         });
         function addingToCart(event){
+            count = parseInt(count) + 1;
+            console.log(count);
             event.target.removeEventListener('click',addingToCart);
             setTimeout(()=>{
                 event.target.style.backgroundColor='#038d04';
@@ -74,6 +79,10 @@ searchBtn.addEventListener('click', (event)=>{
                 },500);
             });
             if(cartIcon.classList.contains('animateCartIcon')) cartIcon.classList.remove("animateCartIcon");
+            if(notificationMessContainer.classList.contains("slideUp")) {
+                notificationMessContainer.classList.remove("slideUp");
+                notificationMessContainer.classList.add("notifInactive");
+            }
             var parentCard = event.target.parentElement.parentElement.parentElement;
             var imageSrc = parentCard.childNodes[1].childNodes[1].src;
             var medName = parentCard.childNodes[3].innerText;
@@ -103,9 +112,19 @@ searchBtn.addEventListener('click', (event)=>{
             cart_view.innerHTML+=newMiniCard;
             if(summaryBtn.classList.contains('summaryBtnInactive')) summaryBtn.classList.remove('summaryBtnInactive');
             cartIcon.classList.add("animateCartIcon");
+            if(notificationMessContainer.classList.contains("notifInactive")) {
+                notificationMessContainer.classList.remove("notifInactive");
+                if(count > 1) qtyInCart.innerText = `${count} Items`;
+                else qtyInCart.innerText = `${count} Item`;
+                medNameInCart.innerText = medName;
+                notificationMessContainer.classList.add("slideUp");
+            }
+            
         }
         addToCartBtns.forEach(btn=>{
+            
             btn.addEventListener('click',addingToCart);
+            
         });
         //removing previous event listener and adding new one
         summaryBtn.removeEventListener('click', summaryHandling);
@@ -345,4 +364,3 @@ function updateSummary(){
     let cartTotal=document.querySelector(".summary_container");
     cartTotal.childNodes[1].childNodes[1].childNodes[1].innerText=`₹${(tata1mgTotal+apolloTotal+pharmeasyTotal).toFixed(2)}`;
 }
-
