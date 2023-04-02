@@ -561,3 +561,71 @@ header > i:hover {
       transform: translateX(0px);
     }
   }
+
+#notificationContainer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    transform: translateY(40px);
+}
+
+.notificationMessContainer{
+    z-index: 1000;
+    margin: 0px auto;
+    /* background-image: linear-gradient(to top, #051937, #17305a, #2a4980, #3e63a8, #537fd2); */
+    background-color: rgb(83, 127, 210);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding: 10px 50px;
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.qtyInCart{
+    margin-left: 90px;
+    border-right: 1px solid #ffffff;
+    /* background-color: blue; */
+}
+
+.medNameInCart{
+    margin-left: 100px;
+}
+
+.notifInactive{
+    display: none;
+}
+
+.slideUp{
+    animation: slideUp 3s linear both;
+}
+  
+@keyframes slideUp{
+    0%{
+        transform: translateY(0);
+        opacity: 0;
+    }
+    30%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    50%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    80%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
