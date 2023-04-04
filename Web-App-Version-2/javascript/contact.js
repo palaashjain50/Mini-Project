@@ -1,18 +1,31 @@
 // for typing animation
 var typed = new Typed('#slogan', {
-    strings: ['','Let Us Know Your Opinions...'],
+    strings: ['', 'Let Us Know Your Opinions...'],
     typeSpeed: 20,
 });
 
-const reviews = ["I recently switched to a new medication for my allergies and it has been a game-changer. I was constantly struggling with congestion and sneezing, but now my symptoms are completely under control. The only downside is that it can make me a bit drowsy, but I've found that taking it before bed helps me get a good night's sleep.", "I've been taking this medication for my chronic pain for a few weeks now, and I have to say that it's been a disappointment. It hasn't really helped alleviate my symptoms and I've experienced some unpleasant side effects like nausea and dizziness. I'm going to speak to my doctor about trying a different medication.", "I suffer from anxiety and panic attacks and was prescribed this medication by my doctor. I was hesitant to take it at first, but it has been a lifesaver. It helps me stay calm and focused during the day and I haven't experienced any negative side effects. I highly recommend it to anyone struggling with anxiety."];
-const users = ["Shanouf Ansari", "Harsh Jain", "Palaash Jain"];
+var reviews;
+var users;
 const icons = ["../Images/user2.png", "../Images/user3.png", "../Images/user.png"];
 // const reviews = ["one", "two", "three"];
 var c = document.getElementById("user_icon");
 var u = document.getElementById("user_name");
 var p = document.getElementById("user_text");
 var i = 0;
-var length = reviews.length;
+var img = 0;
+var length;
+
+window.onload = (event) => {
+    reviews = JSON.parse(localStorage.getItem("review"));
+    users = JSON.parse(localStorage.getItem("user"));
+    if (reviews === null)
+    {
+        reviews = [];
+        users = [];
+    }
+    length = reviews.length;
+    console.log(users);
+};
 
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
@@ -36,9 +49,10 @@ function delay(time) {
 var left = document.getElementById("left_click");
 var right = document.getElementById("right_click");
 
-right.addEventListener("click", function(){
+right.addEventListener("click", function () {
     i = (i + 1) % length;
-    var temp_a = icons[i];
+    img = Math.floor(Math.random() * 100) % icons.length;
+    var temp_a = icons[img];
     var temp_b = users[i];
     var temp_c = reviews[i];
     c.src = temp_a;
@@ -46,12 +60,13 @@ right.addEventListener("click", function(){
     p.innerHTML = temp_c;
 });
 
-left.addEventListener("click", function(){
+left.addEventListener("click", function () {
     if (i == 0)
         i = length - 1;
     else
         i = i - 1;
-    var temp_d = icons[i];
+    img = Math.floor(Math.random() * 100) % icons.length;
+    var temp_d = icons[img];
     var temp_e = users[i];
     var temp_f = reviews[i];
     c.src = temp_d;
@@ -65,24 +80,52 @@ var submit_animation = document.getElementById("submit_animation");
 var submission = document.getElementById("submission");
 var form = document.getElementById("form");
 
-submit.addEventListener("click", function(){
+function validateEmail(input) 
+{
+
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (input.match(validRegex))
+        return true;
+    else 
+        return false;
+}
+
+submit.addEventListener("click", function () {
     var name_input = ((document.getElementById("name")).value).length;
     var email_input = ((document.getElementById("email")).value).length;
     var comments_input = ((document.getElementById("comments")).value).length;
     if (name_input == 0 || email_input == 0 || comments_input == 0)
         window.alert("Empty Input");
-    else
-    {
+    else {
         name_input = document.getElementById("name");
         email_input = document.getElementById("email");
         comments_input = document.getElementById("comments");
-        reviews.push(comments_input);
-        users.push(name_input);
+        if (!validateEmail(email_input.value))
+        {
+            // window.alert("Please enter a valid email!!");
+            document.getElementById("valid_email").style.display = "inline-block";
+            email_input.classList.add("email_animation");
+            delay(2000).then(() => { email_input.classList.remove("email_animation"); document.getElementById("valid_email").style.display = "none";});
+            return;
+        }
+        reviews.push(comments_input.value);
+        users.push(name_input.value);
+        length = reviews.length;
         var temp = form.style.background;
         form_content.style.display = "none";
         form.style.background = "none";
         submit_animation.style.display = "flex";
-        delay(1500).then(() => {submit_animation.style.display = "none"; submission.style.display = "block"});
-        delay(5000).then(() => {submission.style.display = "none"; form_content.style.display = "block"; name_input.value = ""; email_input.value = ""; comments_input.value = " "; form.style.background = temp;});
+        delay(1500).then(() => { submit_animation.style.display = "none"; submission.style.display = "block" });
+        delay(5000).then(() => {
+            submission.style.display = "none";
+            form_content.style.display = "block";
+            name_input.value = "";
+            email_input.value = "";
+            comments_input.value = "";
+            form.style.background = temp;
+        });
+        localStorage.setItem("review", JSON.stringify(reviews));
+        localStorage.setItem("user", JSON.stringify(users));
     }
 });
