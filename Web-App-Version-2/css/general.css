@@ -8,6 +8,21 @@
     font-family: 'Titillium Web', sans-serif;
 }
 
+/*For scroll bar*/
+::-webkit-scrollbar {
+    width: 4px;   
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 4px;
+    height: 10%;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(83, 127, 210);
+}
+
 /* header */
 #header{
     height: 600px;
