@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+
+.wrapper{
+    overflow-x: hidden;
+    height: 1000px;
+    overflow-y: hidden;
+}
+
+.aboutUsContainer, .aboutUSSection, .aboutDev, .aboutUsHeading, .aboutUsDesc, .underLine, .desc, .aboutDev, .aboutDevHeading, .devGrid, .gridItem, .animatedCircle1
+.animatedCircle2, .animatedCircle3, i, .devName, .devDesc, .profileIcon ,.profile{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.aboutUsContainer {
+    position: relative;
+    padding: 50px;
+    width: 100vw;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #051937, #0e315f, #154c8b, #1868ba, #1286eb);
+}
+
+.aboutUSSection{
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutUsHeading, .aboutDevHeading{
+    font-size: 50px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 2px;
+    /* background: linear-gradient(to right, #f32170,#ff6b08, #cf23cf, #eedd44);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; */
+}
+
+.underLine{
+    width: 5%;
+    height: 5px;
+    background-color: rgb(83, 127, 210);
+    border-radius: 1px;
+}
+
+.aboutUsDesc{
+    margin-top: 50px;
+}
+
+.desc{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
+
+.aboutDev{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.underLine2{
+    width: 5%;
+    height: 5px;
+    border-radius: 1px;
+    background-color: rgb(124, 180, 229);
+}
+
+.devGrid{
+    margin-top: 50px;
+    padding: 0px 50px;
+    width: 100%;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    z-index: 1000;
+}
+
+.gridItem{
+    background-image: linear-gradient(to right top, #407fdd, #5e9ce4, #86b8e7, #b3d3ea, #e4ebef);
+    width: 100%;
+    height: 400px;
+    display: grid;
+    grid-template-rows: 2fr 1fr 5fr 3fr;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.devName{
+    margin-top: 20px;
+    color: #062130;
+    font-size: 35px;
+    text-align: center;
+    text-transform: uppercase;
+    /* border-bottom: 2px solid rgb(107, 153, 194); */
+    font-weight: bold;
+}
+
+.devDesc{
+    text-align: center;
+    /* text-align: justify; */
+    padding: 10px;
+    font-size: 20px;
+    line-height: 40px;
+    color: #062130;
+    font-weight: 700;
+}
+
+.profile{
+    height: 100%;
+    display: flex;
+    gap: 15px;
+    width: 90px;
+    height: 40px;
+    margin: 0px auto;
+}
+
+ .profileIcon{
+    opacity: 0.8;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+ }
+
+ .devUnderline{
+    /* margin-top: 5px; */
+    width: 20%;
+    height: 3px;
+    margin: 0px auto;
+    background-color: rgb(95, 169, 233);
+ }
