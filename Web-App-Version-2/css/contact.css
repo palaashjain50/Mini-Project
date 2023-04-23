@@ -20,14 +20,16 @@
 
 #reviews{
     display: flex;
+    background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
+    color: white;
 }
 
 #form{
     display: flex;
     width: 32%;
-    border-right: 2px solid grey;
+    /* border-right: 2px solid grey; */
     padding: 25px;
-    background: url("../Images/form_back.webp");
+    /* background: url("../Images/form_back.webp"); */
     /* background: url("../Images/form_back2.jpg"); */
 }
 
@@ -127,9 +129,9 @@ span{
     align-items: center;
     justify-content: center;
     /* background: rgb(224, 244, 243); */
-    background: url("../Images/review_box.avif");
+    /* background: url("../Images/review_box.avif"); */
     /* background: url("../Images/review_box.jpg"); */
-    border-right: 2px solid grey;
+    /* border-right: 2px solid grey; */
 }
 
 
@@ -150,7 +152,8 @@ span{
     justify-content: center;
     width: 600px;
     height: 200px;
-    background: rgb(171, 229, 55);
+    /* background: rgb(171, 229, 55); */
+    background: rgb(49 128 255);
     border-radius: 15px;
     /* align-items: center; */
     text-align: center;

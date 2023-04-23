@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
+
+.wrapper{
+    overflow-x: hidden;
+}
+
+.introContainer, .introSection, .aboutDev, .introHeading, .introDesc, .underLine, .desc, .aboutWork, .aboutWorkHeading{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.introContainer {
+    position: relative;
+    padding: 50px;
+    width: 100vw;
+    height: 100%;
+    background-image: linear-gradient(to bottom, #051937, #0e315f, #154c8b, #1868ba, #1286eb);
+}
+
+.introSection{
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.introHeading, .aboutWorkHeading{
+    font-size: 50px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 2px;
+    /* background: linear-gradient(to right, #f32170,#ff6b08, #cf23cf, #eedd44);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent; */
+}
+
+.underLine{
+    width: 5%;
+    height: 5px;
+    background-color: rgb(83, 127, 210);
+    border-radius: 1px;
+}
+
+.introDesc{
+    margin-top: 50px;
+}
+
+.desc{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
+
+.aboutWork{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    font-size: 23px;
+}
+
+.underLine2{
+    width: 5%;
+    height: 5px;
+    border-radius: 1px;
+    background-color: rgb(124, 180, 229);
+}
+
+#workCards{
+    display: flex;
+    flex-direction: column;
+}
+
+.workCard{
+    display: flex;
+    width: 1270px;
+    height: 150px;
+    margin: 10px;
+    padding: 5px;
+}
+
+.workName{
+    width: 25%;
+    border-radius: 15px;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    background-image: linear-gradient(to right top, #407fdd, #5e9ce4, #86b8e7, #b3d3ea, #e4ebef);
+    color: black;
+    font-weight: bold;
+}
+
+.workText{
+    width: 75%;
+    border-radius: 15px;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
+}
