@@ -1,4 +1,3 @@
-
 // 1.Install Node.js
 // 2.Install express.js: npm install express
 // 3.Install cheerio module: npm install cheerio
@@ -26,12 +25,14 @@ function getSrc(string){
     return string;
 }
 
+let ads_flag = 0;
+
 //function to consider dynamic changes in an html file(to be used in 1mg scraping)
 async function getArr(url) {
     const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     // await page.goto(url, {waitUntil: 'networkidle0', timeout: 0});
-    await page.setViewport({ width: 1280, height: 800 });
+    await page.setViewport({ width: 1600, height: 1200 });//1280 800 original values
     await page.goto(url, {waitUntil: 'networkidle0', timeout: 0});
     var imageElements = await page.$$('.style__product-image___1bkgA');
     if(imageElements.length==0){
@@ -39,6 +40,13 @@ async function getArr(url) {
     }
     var srcArr=[], loopBreak=0;//to break out of the loop if 4 srcs have been obtained
     for(var imageElement of imageElements){
+        if (ads_flag == 1)
+        {
+            if (imageElement === imageElements[2])
+            {
+                continue;
+            }
+        }
         loopBreak++;
         var innerhtml = await(await imageElement.getProperty('innerHTML')).jsonValue();
         innerhtml=JSON.stringify(innerhtml);
@@ -69,7 +77,14 @@ async function getArr(url) {
 //scraping
 const app = express();
 
-app.use(bodyParser.urlencoded({extended : true}));
+// app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
+app.use(function(req, res, next){
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 app.post('/', async (req, res) => {
       
@@ -85,11 +100,11 @@ app.post('/', async (req, res) => {
     // res.end('thanks');
 
 
-        var med = req.body;
+        var med = req.body.name;
         //console.log(med);
         //console.log(typeof(med));
 
-        var url1 = `https://www.1mg.com/search/all?name=${med['name']}`;
+        var url1 = `https://www.1mg.com/search/all?name=${med}`;
         //console.log('url1' ,url1);
         var customHeaderRequest1 = request.defaults({
         headers : {'Origin': 'https://www.1mg.com',
@@ -98,20 +113,20 @@ app.post('/', async (req, res) => {
                   }
         });
         customHeaderRequest1.get(url1, function(err, resp, body){
-            var tata1mg, price, med_name, hyperLink, mrp;
+            var tata1mg, price, med_name, hyperLink;
             var $ = cheerio.load(body);
             // let med_name;
-            var med_name1= $(".style__pro-title___3G3rr"); 
+            var med_name1= $(".style__pro-title___3G3rr");
             // console.log(med_name1[0].text);
             // console.log(typeof(med_name1));
             // console.log($(".style__pro-title___3G3rr"));
             // if(Object.keys(med_name1).length == 1)  {
             if(med_name1['length'] == 0) {
                     // RCIFAX, bilypsa
+                    //dolo
                     //console.log('1');
                     med_name = $(".style__pro-title___3zxNC"); 
                     price = $('.style__price-tag___B2csA');
-                    mrp = $('.style__discount-price___-Cikw');
                     hyperLink = $(".style__horizontal-card___1Zwmt").children('a');
             } 
             else {
@@ -119,38 +134,130 @@ app.post('/', async (req, res) => {
                     //console.log('2');
                     med_name = med_name1;
                     price = $('.style__price-tag___KzOkY'); 
-                    mrp = $('.style__discount-price___qlNIB');
                     hyperLink = $(".style__product-link___1hWpa");
             }
-            tata1mg = {
-                medicines: [
-                    $(med_name[0]).text(),
-                    $(med_name[1]).text(), 
-                    $(med_name[2]).text(), 
-                    $(med_name[3]).text()
-                ],
-                prices: [
-                    $(price[0]).text(), 
-                    $(price[1]).text(), 
-                    $(price[2]).text(), 
-                    $(price[3]).text()
-                ],
-                mrp: [$(mrp[0]).text(),
-                    $(mrp[1]).text(),
-                    $(mrp[2]).text(),
-                    $(mrp[3]).text(),
-                ],
-                images: [],
-                hyperLinks: [
-                    "https://www.1mg.com"+$(hyperLink[0]).attr('href'),
-                    "https://www.1mg.com"+$(hyperLink[1]).attr('href'),
-                    "https://www.1mg.com"+$(hyperLink[2]).attr('href'),
-                    "https://www.1mg.com"+$(hyperLink[3]).attr('href')
-                ]
-            };
+            var ads = $(".style__adBadge-text___2He6o");
+            if (ads['length'] == 0)
+            {
+                tata1mg = {
+                    medicines: [
+                        $(med_name[0]).text(),
+                        $(med_name[1]).text(),
+                        $(med_name[2]).text(),
+                        $(med_name[3]).text()
+                    ],
+                    prices: [
+                        $(price[0]).text(),
+                        $(price[1]).text(),
+                        $(price[2]).text(),
+                        $(price[3]).text()
+                    ],
+                    images: [],
+                    hyperLinks: [
+                        "https://www.1mg.com"+$(hyperLink[0]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[1]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[2]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[3]).attr('href')
+                    ]
+                };
+            }
+            else
+            {
+                ads_flag = 1;
+                tata1mg = {
+                    medicines: [
+                        $(med_name[0]).text(),
+                        $(med_name[1]).text(),
+                        $(med_name[3]).text(),
+                        $(med_name[4]).text()
+                    ],
+                    prices: [
+                        $(price[0]).text(),
+                        $(price[1]).text(),
+                        $(price[3]).text(),
+                        $(price[4]).text()
+                    ],
+                    images: [],
+                    hyperLinks: [
+                        "https://www.1mg.com"+$(hyperLink[0]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[1]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[3]).attr('href'),
+                        "https://www.1mg.com"+$(hyperLink[4]).attr('href')
+                    ]
+                };
+            }
+//fetching tata1mg images from here
+// let divs = $("div");
+// let html = divs.html();
+
+// let startLink = "https://onemg.gumlet.io/";
+// let startLength = startLink.length;
+// let docLength = html.length;
+// const img1 = ".png";
+// const img2 = ".jpg";
+// let images = [];
+
+// for (var i = 0; i < docLength - startLength; ++i)
+// {
+//     if (html.slice(i, i + startLength) === startLink)
+//     {
+//         let tempStart = i;
+//         let end = "\"";
+//         while (html.charAt(i) !== end)
+//         {
+//             ++i;
+//         }
+//         let tempEnd = i;
+//         i = i + 4;
+//         if (html.slice(i, i + 4) === "name")
+//         {
+//             var tempUrl = html.slice(tempStart, tempEnd);
+//             images.push(tempUrl);
+//         }
+//     }
+// }
+// if (ads_flag == 1)
+// {
+//     tata1mg.images.push(images[0]);
+//     tata1mg.images.push(images[1]);
+//     tata1mg.images.push(images[3]);
+//     tata1mg.images.push(images[4]);
+// }
+// else
+// {
+//     tata1mg.images.push(images[0]);
+//     tata1mg.images.push(images[1]);
+//     tata1mg.images.push(images[2]);
+//     tata1mg.images.push(images[3]);   
+// }
+//ending fetching images
+
+//fetching tata1mg images take-2----------------------------------------------------------------------------------------------
+var imgScripts=$("div.content script").first();     //less string to process
+var string=imgScripts.text();
+var images=[];
+string.split("\"").forEach(str=>{
+    if(str.startsWith("https://onemg.gumlet.io/")&&str.includes("h_150")){
+        images.push(str.replace('\\',''));
+    }
+});
+if (ads_flag == 1){
+    tata1mg.images.push(images[0]);
+    tata1mg.images.push(images[1]);
+    tata1mg.images.push(images[3]);
+    tata1mg.images.push(images[4]);
+}
+else{
+    tata1mg.images.push(images[0]);
+    tata1mg.images.push(images[1]);
+    tata1mg.images.push(images[2]);
+    tata1mg.images.push(images[3]);   
+}
+//----------------------------------------------------------------------------------------------------------fetching ends here
+
 
             // Scraping from apollopharmacy
-            var url3 = `https://www.apollopharmacy.in/search-medicines/${med['name']}`;
+            var url3 = `https://www.apollopharmacy.in/search-medicines/${med}`;
             var customHeaderRequest3 = request.defaults({
             headers : {'Origin': 'https://www.apollopharmacy.in/', 
                         'Referer': url3,
@@ -192,7 +299,7 @@ app.post('/', async (req, res) => {
                 }
                 
                 // Scraping from pharmeasy
-                var url4 = `https://www.pharmeasy.in/search/all?name=${med['name']}`;
+                var url4 = `https://www.pharmeasy.in/search/all?name=${med}`;
                 var customHeaderRequest4 = request.defaults({
                     headers : {'Origin': 'https://www.pharmeasy.in',
                             'Referer': url4,
@@ -202,10 +309,8 @@ app.post('/', async (req, res) => {
                 customHeaderRequest4.get(url4, function(err, resp, body){
                     let $ = cheerio.load(body);
                     var pharmeasy;
-                    let med_name = $(".ProductCard_medicineName__8Ydfq"); 
-                    let price = $(".ProductCard_ourPrice__yDytt"); 
+                    let med_name = $(".ProductCard_medicineName__8Ydfq");  
                     let image = $(".ProductCard_medicineImgDefault__Q8XbJ noscript");
-                    let mrp = $('.ProductCard_striked__jkSiD');
                     let hyperLink = $(".ProductCard_medicineUnitWrapper__eoLpy.ProductCard_defaultWrapper__nxV0R");
                     pharmeasy = {
                         medicines: [
@@ -214,16 +319,14 @@ app.post('/', async (req, res) => {
                             $(med_name[2]).text(), 
                             $(med_name[3]).text()
                         ],
+                        // prices: [
+                        //     $(price[0]).text(), 
+                        //     $(price[1]).text(), 
+                        //     $(price[2]).text(), 
+                        //     $(price[3]).text()
+                        // ],
                         prices: [
-                            $(price[0]).text(), 
-                            $(price[1]).text(), 
-                            $(price[2]).text(), 
-                            $(price[3]).text()
-                        ],
-                        mrp: [$(mrp[0]).text(),
-                            $(mrp[1]).text(),
-                            $(mrp[2]).text(),
-                            $(mrp[3]).text(),
+                            
                         ],
                         images: [
                             getSrc($(image[0]).text()), 
@@ -238,6 +341,19 @@ app.post('/', async (req, res) => {
                             "https://www.pharmeasy.in"+$(hyperLink[3]).attr('href')
                         ]
                     };
+                    let priceParent = $(".ProductCard_priceContainer__dqj7Q");
+                    let price = $(".ProductCard_ourPrice__yDytt");
+                    let prices2 = $(".ProductCard_gcdDiscountContainer__CCi51");
+                    let pr_idx = 0;
+                    let pr2_idx = 0;
+                    for (var i = 0; i < 4; ++i)
+                    {
+                        let childText = $(priceParent[i]).text();
+                        if (childText.charAt(0) === "M")
+                            pharmeasy.prices.push($(prices2[pr2_idx++]).children('span').first().text());
+                        else
+                            pharmeasy.prices.push($(price[pr_idx++]).text());
+                    }
                     //for scraping img srcs of 1mg
                     (async function scrape(){
                         
@@ -246,7 +362,7 @@ app.post('/', async (req, res) => {
                         // for(i=0; i<4; i++){
                             // if(tata1mg.medicines[i]!=""){
                                 // var url1 = tata1mg.hyperLinks[i];
-                                tata1mg.images = await getArr(url1);
+                                // tata1mg.images = await getArr(url1);
                                 // $ = cheerio.load(html);
                                 // var image = $('.style__image___Ny-Sa.style__loaded___22epL');
                                 // if(image['length']==0){
@@ -257,11 +373,11 @@ app.post('/', async (req, res) => {
                             // }
                         // }
                         // ---------------------------------------------------------------------------------- to here
-                        //res.json({tata1mg, apollo, pharmeasy});
-                        var arr=[tata1mg,apollo,pharmeasy];
+                        res.json({tata1mg, apollo, pharmeasy});
+                        //var arr=[tata1mg,apollo,pharmeasy];
                         //console.log(pharmeasy);
-                        var fs=require('fs');
-                        fs.writeFileSync('med.json', JSON.stringify(arr, null, 2) , 'utf-8');
+                        // var fs=require('fs');
+                        // fs.writeFileSync('./html/med.json', JSON.stringify(arr, null, 2) , 'utf-8');
 
                     })();
                 });

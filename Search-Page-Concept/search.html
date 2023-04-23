@@ -5,227 +5,443 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MediSort | Search</title>
-    <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="search.css">
+
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/search.css">
+
     <!-- for favicon -->
-    <link rel="icon" type="image/x-icon" href="./Images/logo.png">
-    <!-- for google icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="icon" type="image/x-icon" href="../Images/logo.png">
 </head>
 <body>
     <!-- header section of the page -->
-    <div id="header">
-        <div id="banner">
-            <img src="./Images/banner.jpg" alt="MediSort">
-        </div>
-        <div id="navbar">
-            <img src="./Images/logo.png" alt="MediSort Logo">
-            <nav id="navList">
-                <div class="listItem">
-                    <a href="medisort.html">Home</a>
-                </div>
-                <div class="listItem">
-                    <a href="about.html">About Us</a>
-                </div>
-                <div class="listItem">
-                    <a class="currentPage" style="color: black;" href="search.html">Search</a>
-                </div>
-                <div class="listItem">
-                    <a href="contact.html">Contact Us</a>
-                </div>
-            </nav>
-        </div>
-        <div id="heading">
-            Medi<span>Sort</span>
-        </div>
-        <div id="slogan">
-            <!-- The One Step Solution to Your Medication Needs -->
-        </div>
-    </div>
-    <!-- Search box + Result + Cart -->
-    <div id="searchPageContent">
-        <div id="summaryBtn">
-            <button>
-                <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-        </div>
-        <div id="searchBoxHeader">
-            <div id="formContainer">
-                <form target="transFrame" action="http://localhost:3000/" method="POST">
-                    <input type="text" placeholder="Search for a Medicine..." id="medicine_name" name="name">
-                    <button id="searchBtn" type="submit"><img src="./Images/searchIcon.png" alt="Search"></button>
-                </form>
+    <div class="search_web_page">
+
+        <div id="header" style="width: 100%;">
+            <div id="banner">
+                <img src="../Images/banner.jpg" alt="MediSort">
+            </div>
+            <div id="navbar">
+                <img src="../Images/logo.png" alt="MediSort Logo">
+                <nav id="navList">
+                    <div class="listItem">
+                        <a href="medisort.html">Home</a>
+                    </div>
+                    <div class="listItem">
+                        <a href="about.html">About Us</a>
+                    </div>
+                    <div class="listItem">
+                        <a class="currentPage" style="color: black;" href="search.html">Search</a>
+                    </div>
+                    <div class="listItem">
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </nav>
+            </div>
+            <div id="heading">
+                Medi<span>Sort</span>
+            </div>
+            <div id="slogan">
+                <!-- The One Step Solution to Your Medication Needs -->
             </div>
         </div>
-        <div id="searchResultBox">
-            <div id="searchInfo">
-                <!-- will be appended through javascript -->
-                <!-- Showing results for Crocin..... -->
-                <!-- <div>Please wait while we look for the medicine</div>
-                <div><img src="../Images/searchLoading.gif" width="32px" alt="Loading..."></div> -->
+        
+        <div class="search_box" style="width: 100%;">
+
+            <button class="summary_btn">View Summary</button>
+
+            <form target="transFrame" action="http://localhost:3000/" method="POST" class="form_container">
+                <iframe style="display: none;" name="transFrame" id="transFrame"></iframe>
+                <input type="text" placeholder="Search Medicine..." id="medicine__name" name="name">
+                <button id="clickbtn" type="submit">
+                    <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                        </path>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="load_gif">
+                <img src="../Images/load_med.gif" alt="" width="200px" height="200px">
             </div>
-            <div id="searchCards">
-                <!-- card structure that will be appended in html using javascript -->
-                <!-- <div class="searchCard">
-                    <div class="imageArea">
-                        <img src="" alt="">
-                    </div>
-                    <div class="medName">
-                        Crocin 150 Tablet 20mg
-                    </div>
-                    <div class="baseGroup">
-                        <div class="price">
-                            Price- <span>$20.00</span>
-                        </div>
-                        <div class="quantityArea">
-                            <div class="addIcon">
-                                <span class="material-symbols-outlined">
-                                    add
-                                </span>
+
+            <div class="output_search_container">
+                <!-- Output of search box i.e displaying medicine list -->
+                <div class="medicine_container">
+                    <!-- Tata 1mg -->
+                    <div class="tata1mg_container">
+    
+                        <div class="card">
+                            
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
                             </div>
-                            <div class="displayArea">
-                                5
-                            </div>
-                            <div class="subtractIcon">
-                                <span class="material-symbols-outlined">
-                                    remove
-                                </span>
-                            </div>
-                        </div>
-                        <div class="addToCartArea">
-                            <div class="addToCartBtn">
+    
+                            <button class="cart">
                                 Add to Cart
+                            </button>
+    
+                            <!-- Hidden in begining -->
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                            
+                        </div>
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="cardSource">
-                            Source: <span><a href="" target="_blank">NetMeds</a></span>
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <!-- Apollo -->
+                    <div class="apollo_container">
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <!-- <p class="mrp"><strike>&#8377;</strike></p> -->
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <!-- <p class="mrp"><strike>&#8377;</strike></p> -->
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <!-- <p class="mrp"><strike>&#8377;</strike></p> -->
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div> -->
-            </div>
-        </div>  
-        <div id="summary_container" class="summary_container">
-            <header>
-                 <p>MY CART | Grand Total: <span></span></p>
-                 <i class="fa-solid fa-x closeicon"></i>
-            </header>
-            <div class="summaryBox_parent">
-                <div class="cart_view">
-                    <!-- <div class="cartCard">
-                        <a href="" class="imgLink"><img src="" alt=""></a>
-                        <div class="medDescription">
-                            <a href="" class="medLink"><p class="med_name">Otrivin Oxy Fast Relief Adult Nasal Spray </p></a>
-                            <p class="priceViewParent">
-                                <span class="mrpView">29.9</span>
-                                <span class="priceView">29</span>
-                            </p>
-                        </div>
-                        <div class="counter">
-                            <div><i class="fa-solid fa-minus"></i></div>
-                            <p>1</p>
-                            <div><i class="fa-solid fa-plus"></i></div>
-                        </div>
-                        <p class="tata1mg_tag">Tata 1mg</p>
-                        <p class="removeTag">
-                            <i class="fa-sharp fa-solid fa-trash"></i>
-                        </p>
-                    </div> -->
-                </div> 
-                <!-- Will be added dynamically -->
-                <div class="summary_div">
-                    <p class="summary_txt">Summary</p>
-                    <div class="summary_desc">
-                        <div class="tata1mg_summary">
-                            <header class="summary_header">TATA 1MG | Total: <span>Rs.500</span></header>
-                            <div class="summary_content">
-                                Empty
+    
+                    <!-- Pharmeasy -->
+                    <div class="pharmeasy_container">
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="apollo_summary">
-                            <header class="summary_header">APOLLO | Total: <span>Rs.700</span></header>
-                            <div class="summary_content">
-                                Empty
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="pharmeasy_summary">
-                            <header class="summary_header">PHARMEASY | Total: <span>Rs.300</span></header>
-                            <div class="summary_content">
-                                Empty
-                                <!-- <div class="summary_content_box">
-                                    <p >Medicine Name</p>
+                        <div class="card">
+                            <img src="" alt="" width="180px" height="200px" class="medi_img">
+                            <div class="product_details">
+                                <!-- medicine-name -->
+                                <p class="medicine_name"><p>
+                                <!-- no. of tablets -->
+                                <p></p>
+                                <!-- mrp -->
+                                <p class="mrp"></p>
+                                <!-- actual price -->
+                                <p class="actual_price">&#8377;</p>
+                            </div>
+                            <button class="cart">
+                                Add to Cart
+                            </button>
+                            <div class="counter_btn">
+                                <button class="counter_btn_plus">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div class="qty">1</div>
+                                <button class="counter_btn_minus">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+
+                <!-- Displayed on click of 'View Summary' button -->
+                <div class="summary_container">
+                    <p>Medicine Cart</p>
+                    <div class="summary_container_companies">
+                        <!-- Tata1mg -->
+                        <div class="tata1mg_cart">
+    
+                            <p>Tata 1mg</p>
+    
+                            <!-- All class are starting with letter c to avoid clash with the names of medicine_container -->
+                            <div class="cart_items">
+                                <div class="cart_items_description">
+                                    <p>Medicine</p>
                                     <p>Qty</p>
+                                    <p>MRP</p>
                                     <p>Price</p>
-                                </div> -->
+                                </div>
+                                <div class="cart_item">
+                                    <p class="c_medicine_name">Crocin 650 Advance Tablet</p>
+                                    <p class="c_qty">1</p>
+                                    <p class="c_mrp">₹29.9</p>
+                                    <p class="c_price">₹29</p>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                        <!-- Pharmeasy -->
+                        <div class="pharmeasy_cart">
+                            <p>Pharmeasy</p>
+    
+                            <!-- All class are starting with letter c to avoid clash with the names of medicine_container -->
+                            <div class="cart_items">
+                                <div class="cart_items_description">
+                                    <p>Medicine</p>
+                                    <p>Qty</p>
+                                    <p>MRP</p>
+                                    <p>Price</p>
+                                </div>
+                                <div class="cart_item">
+                                    <p class="c_medicine_name">Crocin 650 Advance Tablet</p>
+                                    <p class="c_qty">1</p>
+                                    <p class="c_mrp">₹29.9</p>
+                                    <p class="c_price">₹29</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Apollo -->
+                        <div class="apollo_cart">
+                            <p>Apollo</p>
+    
+                            <!-- All class are starting with letter c to avoid clash with the names of medicine_container -->
+                            <div class="cart_items">
+                                <div class="cart_items_description">
+                                    <p>Medicine</p>
+                                    <p>Qty</p>
+                                    <p>MRP</p>
+                                    <p>Price</p>
+                                </div>
+                                <div class="cart_item">
+                                    <p class="c_medicine_name">Crocin 650 Advance Tablet</p>
+                                    <p class="c_qty">1</p>
+                                    <p class="c_mrp">₹29.9</p>
+                                    <p class="c_price">₹29</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    </div>
-    <!-- for notifications -->
-    <div id="notificationContainer">
-        <div></div>
-        <div class="notificationMessContainer">
-            <p class="qtyInCart">
-                <!-- 12 Items -->
-            </p>
-            <p class="medNameInCart">
-                <!-- Crocin 240 DS Mixed Fruit Suspension, 100 ml  -->
-            </p>
-        </div>
-        <div></div>
-    </div>
-    <div id="footer">
-        <div id="footerBg">
-            <img src="./Images/footer.jpg" alt="Footer">
-            <div id="wrapper">
-                <div id="footLine">
-                    Useful Links
-                </div>
-                <div id="line1" class="line"></div>
-                <div id="links">
-                    <div id="localLinks">
-                        <ul>
-                            <li><a href="medisort.html">Home</a></li>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="search.html">Search</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
+    
+        <div id="footer" style="width: 100%;">
+            <div id="footerBg">
+                <img src="../Images/footer.jpg" alt="Footer">
+                <div id="wrapper">
+                    <div id="footLine">
+                        Useful Links
                     </div>
-                    <div id="medLinks">
-                        <ul>
-                            <li><a href="https://www.netmeds.com" target="_blank">NetMeds</a></li>
-                            <li><a href="https://www.Pharmeasy.com" target="_blank">PharmEasy</a></li>
-                            <li><a href="https://www.1mg.com" target="_blank">Tata 1mg</a></li>
-                            <li><a href="https://www.apollopharmacy.in" target="_blank">Apollo Pharmacy</a></li>
-                        </ul>
-                    </div>
-                    <div id="socialLinks">
-                        <div id="socialHeading">
-                            Follow Us
+                    <div id="line1" class="line"></div>
+                    <div id="links">
+                        <div id="localLinks">
+                            <ul>
+                                <li><a href="medisort.html">Home</a></li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="search.html">Search</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
                         </div>
-                        <div id="icons">
-                            <a href="https://www.instagram.com" target="_blank"><img src="./Images/instagram.png" alt="Instagram"></a>
-                            <a href="https://www.facebook.com" target="_blank"><img src="./Images/facebook.png" alt="FaceBook"></a>
-                            <a href="https://www.twitter.com" target="_blank"><img src="./Images/twitter.png" alt="Twitter"></a>
-                            <a href="https://www.linkedin.com" target="_blank"><img src="./Images/linkedin.png" alt="LinkedIn"></a>
-                            <a href="https://www.youtube.com" target="_blank"><img src="./Images/youtube.png" alt="Youtube"></a>
+                        <div id="medLinks">
+                            <ul>
+                                <li><a href="https://www.netmeds.com" target="_blank">NetMeds</a></li>
+                                <li><a href="https://www.Pharmeasy.com" target="_blank">PharmEasy</a></li>
+                                <li><a href="https://www.1mg.com" target="_blank">Tata 1mg</a></li>
+                                <li><a href="https://www.apollopharmacy.in" target="_blank">Apollo Pharmacy</a></li>
+                            </ul>
+                        </div>
+                        <div id="socialLinks">
+                            <div id="socialHeading">
+                                Follow Us
+                            </div>
+                            <div id="icons">
+                                <a href="https://www.instagram.com" target="_blank"><img src="../Images/instagram.png" alt="Instagram"></a>
+                                <a href="https://www.facebook.com" target="_blank"><img src="../Images/facebook.png" alt="FaceBook"></a>
+                                <a href="https://www.twitter.com" target="_blank"><img src="../Images/twitter.png" alt="Twitter"></a>
+                                <a href="https://www.linkedin.com" target="_blank"><img src="../Images/linkedin.png" alt="LinkedIn"></a>
+                                <a href="https://www.youtube.com" target="_blank"><img src="../Images/youtube.png" alt="Youtube"></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="line2" class="line"></div>
-                <div id="copyright">
-                    www.medisort.com | &copy; Copyright 2023-2025 | All Rights Reserved
+                    <div id="line2" class="line"></div>
+                    <div id="copyright">
+                        www.medisort.com | &copy; Copyright 2023-2025 | All Rights Reserved
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-    <!-- for cart icon -->
-    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+
     <!-- for typing animation -->
     <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+    <!-- for + and - icon in add to cart -->
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
     <!-- page specific js file -->
     <script src="search.js"></script>
+    <script src="app.js"></script>
 </body>
-</html>
+</html> 

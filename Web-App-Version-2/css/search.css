@@ -1,236 +1,631 @@
+/* Reference for custom scroll bar */
+/* https://stackoverflow.com/questions/50817727/change-scrollbar-height */
 
-.search_web_page{
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@1&display=swap');
+
+::-webkit-scrollbar {
+    width: 4px;   
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 4px;
+    height: 10%;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(83, 127, 210);
 }
 
-.output_search_container{
-    position: relative;
-}
-
-.search_box{
-    position: relative;
-    width: 100vw;
-    height: 1500px;
-    overflow-x: hidden;
-    overflow-y: hidden;
+/* base background */
+#searchPageContent{
     background-image: linear-gradient(to right top, #152d4f, #112849, #0d2343, #091e3d, #051937);
-    z-index: 0;
-    padding-top: 50px;
+    font-weight: bolder;
+    position: relative;
+    /* max-height: 1550px; */
 }
 
-.form_container{
-    width: 50%;
-    height: 50px;
-    margin: 0px auto;
-    border-radius: 25px;
+/* search box header */
+#searchBoxHeader{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    margin-bottom: 80px;
 }
 
-#medicine__name{
+#formContainer{
+    margin: 40px;
+}
+
+#formContainer>form{
+    width: 776px;
+    height: 38px;
+}
+
+#formContainer>form>input{
+    width: 750px;
+    height: 28px;
+    font-size: 18px;
+    border-radius: 13px;
+    padding: 5px 13px;
+    border: 0px;
+}
+
+input:focus{
     outline: none;
-    border: none;
-    width: 100%;
-    height: 100%;
-    border-radius: 25px;
-    padding-left: 20px;
-    font-size: 1.1rem;
 }
 
-::placeholder{
-    color: #051937;
-}
-
-#clickbtn{
-    border: none;
-    margin-right: 10px;
-    width: 30px;
-    margin-top: 5px;
-    background-color: white;
+#searchBtn{
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    background-color: transparent;
+    position: relative;
+    right: -710px;
     cursor: pointer;
+    top: -32px;
 }
 
-.summary_btn{
-    all:unset;  
-    position: sticky;
-    top: 50px;
-    left: 1340px;
-    padding: 12px;
-    border-radius: 2rem;
-    color: white;
-    border: 1px solid white;
-    z-index: 10;
-    font-weight: bold;
+#searchBtn>img{
+    height: 25px;
 }
 
-.summary_btn:hover{
-    background-color: white;
-    color: #051937;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.load_gif {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    transform: -50% -50%;
-    scale: 0;
-}
-
-.load_gif_active{
-    scale: 1;
-}
-
-.medicine_container{
-    width: 1000px;
-    max-width: 1300px;
-    margin: 0px auto;
-    display: grid;
-    grid-template-rows: repeat(3,fr);
-}
-
-.inactive{
-    transition: scale 1s;
-    scale: 0;
-}
-
-.tata1mg_container, .pharmeasy_container, .apollo_container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-}
-
-.card{
-    width: 40%;
-    height: 100%;
-    background-color: white;
+/* search result box */
+#searchResultBox{
     display: flex;
     flex-direction: column;
-    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
-.card > img{
-    margin: 10px auto;
-    /* scale: 1.1; */
+#searchInfo{
+    text-align: center;
+    font-size: 20px;
+    color: white;
 }
 
-.product_details{
-    color: #051937;
-    margin-top: 20px;
-    padding-left: 10px;
-    height: 50%;
+#searchCards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    /* to give all cards equal height */
 }
 
-.medicine_name{
-    font-size: 1.5rem;
+/* result cards' design */
+.searchCard{
+    background-color: white;
+    width: 285px;
+    font-size: 18px;
+    padding: 13px;
+    margin: 20px;
+    border-radius: 35px;
+    position: relative;
+    min-height: 415px; /* 380px */
 }
 
-.mrp{
-    margin-top: 20px;
-    opacity: 0.8;
-    font-size: 13px;
+.imageArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageArea>img{
+    width: 170px;
+    height: 170px;
+    margin: 20px;
+}
+
+.baseGroup{
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    bottom: 18px;
+}
+
+.medName, .price, .cardSource, .addToCartBtn{
+    text-align: center;
+}
+
+.price>span{
     color: red;
 }
 
-.cart{
-    all: unset;
-    font-size: 1.2rem;
+.quantityArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addIcon, .subtractIcon{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b3c82;
+    color: white;
+    padding: 3px;
+}
+
+.addIcon:hover, .subtractIcon:hover, .addToCartBtn:hover{
+    cursor: pointer;
+    background-color: #0c2d5c;
+}
+
+.addIcon:active, .subtractIcon:active, .addToCartBtn:active{
+    cursor: pointer;
+    background-color: #3e0199;
+}
+
+.addIcon, .subtractIcon, .addToCartBtn, .displayArea{
+    border-radius: 6px;
+}
+
+.quantityArea>div{
     text-align: center;
-    border-top: 1px solid #051937;
+}
+
+.displayArea{
+    width: 50%;
+    margin: 3px 5px;
+    background-color: #b5d6fb;
+    padding: 3px;
+}
+
+.addToCartArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addToCartBtn{
+    width: 200px;
+    margin: 3px;
+    padding: 2px;
+    background-color: #0b3c82;
+    color: white;
+}
+
+.cardSource>span>a:hover{
+    color: #1d7a13;
+}
+
+.cardSource>span>a{
+    text-decoration: none;
+    color: #12c600;
+}
+
+/* sticky doesn't work for button */
+/* Sticky doesn't work for aligning items to right/left */
+
+#summaryBtn{ 
+    margin-top: 36px;
+    background-color: transparent/*#051937*/;
     position: sticky;
-    bottom: 0; 
+    top: 5px;
+    display: inline-block;
+    /* display: none; */
+    /* Bad practice */
+    float: right;
+
+    /* Not responsive */
+    /* margin-left: 1450px; */  
 }
 
-.cart_inactive{
-    display: none;
+.summaryBtnInactive{
+    visibility: hidden;
 }
 
-.cart:hover{
-    background-color: #051937;
+#summaryBtn > button {
+    border: none;
+    outline: none;
+    margin-right: 5px;
+    padding: 5px 5px;
+    background-color: transparent/*#051937*/;
+    /* border: 1px solid rgb(83, 127, 210); */
+    border-radius: 5px;
+}
+
+.fa-cart-shopping {
+    font-size: 35px;
     color: white;
     cursor: pointer;
 }
 
-.summary_container{
+.fa-cart-shopping:hover {
+    transition: color 0.3s;
+    color: rgb(83, 127, 210);
+}
+
+.animateCartIcon{
+    animation: wobble-hor-bottom 0.8s 1s both;
+}
+
+@keyframes wobble-hor-bottom {
+    0%,
+    100% {
+        transform: translateX(0%);
+        transform-origin: 50% 50%;
+    }
+    15% {
+        transform: translateX(-10px) rotate(-6deg);
+    }
+    30% {
+        transform: translateX(9px) rotate(6deg);
+    }
+    45% {
+        transform: translateX(-9px) rotate(-3.6deg);
+    }
+    60% {
+        transform: translateX(4px) rotate(2.4deg);
+    }
+    75% {
+        transform: translateX(-4px) rotate(-1.2deg);
+    }
+}
+
+.summary_container {
+    overflow-x: hidden;
+    overflow-y: auto;
     transition: translate 2s;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    translate: -50% -50%;
+    left: 48%;
+    top: 40%;
+    translate: -50% -50%;    
+    /* position: relative;
+    top: -900px;
+    left: 280px; */
     width: 900px;
     height: 700px;
+    overflow: hidden;
     background: #00000088;
     scale: 0;
     z-index: 2;
-    border: 1px solid rgb(177, 177, 177);
+    border: 1px solid rgba(182, 215, 231, 0.522);
     border-radius: 6px;
     color: white;
 }
 
-.active{
+.summary_container > header {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px;
+    border-bottom: 2px solid rgb(83, 127, 210);
+}
+
+header > p {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+header > i {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 1.2rem;
+}
+
+header > i:hover {
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    color: rgb(83, 127, 210);
+}
+
+.summaryBox_parent {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+}
+
+.cart_view {
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* overflow: scroll; */
+    height: 100%;
+    max-height: 100vh;
+    padding: 0px 10px;
+}
+
+.cartCard {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    border: 1px solid rgba(182, 215, 231, 0.522);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.imgLink{
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.cartCard > img {
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 50px;
+    height: 50px;
+    /* cursor: pointer;  */
+}
+
+
+.medDescription {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.med_name {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 1.07rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+}
+
+.med_name > a{
+    text-decoration: none;
+    color: white;
+}
+
+.med_name > a:hover{
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    color: rgb(83, 127, 210);
+}
+
+.priceViewParent{
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 2px;
+    font-size: 1.09rem;
+}
+
+.mrpView {
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: rgb(241, 84, 84);
+    text-decoration: line-through;
+}
+
+.counter{
+    /* overflow-x: hidden;
+    overflow-y: auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.counter > div{
+    padding: 5px;    
+    width: 15px;
+    height: 15px;
+    background-color: #0c2d5c;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.counter > div:hover{
+    background-color: rgb(83, 127, 210);  
+}
+
+.counter > p{
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 5px;
+    font-weight: 600;
+}
+
+.fa-trash:hover{
+    cursor: pointer;
+    transition: color 0.3s;
+    color: rgb(83, 127, 210);  
+}
+
+.tata1mg_tag{
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-weight: 100;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: 'Changa One', cursive;
+    padding: 5px;
+    background-color: rgb(133, 132, 132);
+    color: white;
+    /* text-shadow: 1px 1px 0px black; */
+}
+
+.tata1mg_tag:hover{
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: black;
+    
+}
+
+.summary_div {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding:0px 5px;
+}
+
+.summary_txt {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.summary_desc{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 600px;
+    display: grid;
+    grid-template-rows: repeat(3,1fr);
+    gap: 0;
+}
+
+.tata1mg_summary, .apollo_summary, .pharmeasy_summary {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.summary_header {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgb(83, 127, 210);
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    border-radius: 5px;
+    padding-left: 10px; 
+    font-weight: 700;
+}
+
+.summary_content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 25px;
+    height: 100%;
+    padding-bottom: 42px;
+}
+
+.summary_content_box{
+    /* overflow-x: hidden; */
+    /* overflow-y: auto; */
+    /* display: flex;
+    justify-content: space-between; */
+    margin-bottom: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 3fr 0.3fr 0.5fr ;
+    height: 50px;
+}
+
+.active {
     transition: scale 1s;
     scale: 1;
 }
 
-.counter_btn{
-    overflow: hidden;
-    width: 100%;
+.inactive {
+    transition: scale 1s;
+    scale: 0;
+}
+
+/* for shaking text animation */
+@keyframes shake{
+    0%{
+      transform: translateX(0)
+    }
+    15%{
+      transform: translateX(5px);
+    }
+    30%{
+        transform: translateX(-5px);
+    }
+    45%{
+        transform: translateX(0px);
+    }
+    60%{
+        transform: translateX(5px);
+    }
+    75%{
+        transform: translateX(-5px);
+    } 
+    100%{
+      transform: translateX(0px);
+    }
+  }
+
+#notificationContainer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     height: 40px;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    transform: translateY(40px);
+}
+
+.notificationMessContainer{
+    z-index: 1000;
+    margin: 0px auto;
+    /* background-image: linear-gradient(to top, #051937, #17305a, #2a4980, #3e63a8, #537fd2); */
+    background-color: rgb(83, 127, 210);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding: 10px 50px;
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.qtyInCart{
+    margin-left: 90px;
+    border-right: 1px solid #ffffff;
+    /* background-color: blue; */
+}
+
+.medNameInCart{
+    margin-left: 100px;
+}
+
+.notifInactive{
     display: none;
 }
 
-.counter_btn_active{
-    border-top: 1px solid black;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.slideUp{
+    animation: slideUp 3s linear both;
 }
-
-.counter_btn_plus, .counter_btn_minus{
-    all: unset;
-    height: 23px;
-    padding: 5px;
-    cursor: pointer;
+  
+@keyframes slideUp{
+    0%{
+        transform: translateY(0);
+        opacity: 0;
+    }
+    30%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    50%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    80%{
+        transform: translateY(-40px);
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(40px);
+        opacity: 0;
+    }
 }
-
-.counter_btn_plus{
-    border-right: 1px solid black;
-}
-
-.counter_btn_minus{
-    border-left: 1px solid black;
-}
-
-.summary_container_companies{
-    display: flex;
-    flex-direction: column;
-}
-.cart_items{
-    display: grid;
-    grid-template-rows: repeat(2,1fr);
-}
-
-.cart_item, .cart_items_description{
-    font-size: 1.2rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-}
-
-.cart_item > p, .cart_items_description > p{
-    text-align: center;
-}
-
-
-
-
